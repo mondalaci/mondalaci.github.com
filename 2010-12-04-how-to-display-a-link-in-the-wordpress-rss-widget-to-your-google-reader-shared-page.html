@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to display a link in the WordPress RSS widget to your Google Reader shared page</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to display a link in the WordPress RSS widget to your Google Reader shared page</h1>
+<p>2010-12-04 14:04:23 GMT</p>
+<p>This question puzzled me for a while.  It turned out that the WordPress RSS widget <a href="http://core.trac.wordpress.org/ticket/12790">uses the link element</a> of the atom feed it gets to link the header of the widget.  The problem is that the Google Reader atom feed <a href="http://www.google.com/support/forum/p/reader/thread?tid=14146700189bc883&hl=en">doesn't have such an element</a>.</p>
+<p>I originally wanted to use Yahoo Pipes which failed to solve this problem so I've written a handy little script.</p>
+<p><script src="https://gist.github.com/mondalaci/5305877.js"></script></p>
+</body>
+</html>

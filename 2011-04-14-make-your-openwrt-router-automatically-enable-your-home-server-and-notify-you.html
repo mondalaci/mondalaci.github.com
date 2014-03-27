@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Make your OpenWrt router automatically enable your home server and notify you</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Make your OpenWrt router automatically enable your home server and notify you</h1>
+<p>2011-04-14 22:45:23 GMT</p>
+<p>Here's the situation: I have a Mini-ITX home server in my LAN that sometimes gets disabled when the power goes down.  I could setup its BIOS to get automatically enabled when it gets power but considering the nature of power outages it may happen that the power goes out and on in rapid succession over a short amount of time which isn't really good for the hardware.</p>
+<p>I'd rather choose my server to be checked on a 5 minute basis and have it automatically woken up and I also wanna be notified by email on such an occasion so that I can SSH into it and uncrypt the crypto partition.</p>
+<p>I'm about to carry out this task using my OpenWrt driven router.  Everything is pretty straightforward, except that I can't send emails through GMail SMTP using Openwrt because mini_sendmail lacks SASL support so I'll just fetch a PHP script that'll actually send the mail.</p>
+<p>openwrt:/usr/bin/supervise-host</p>
+<p><script src="https://gist.github.com/mondalaci/5363905.js"></script></p>
+<p>Be aware that the above <a href="http://monda.hu/blog/2009/08/17/how-to-wake-on-lan-by-hostname-on-openwrt/">wol</a> utility is a home-cooked one.</p>
+<p>openwrt:/etc/crontab/root</p>
+<pre lang="cron">
+# m h  dom mon dow   command
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * supervise-host mybox http://mydomain.com/notifyme.php
+</pre>
+<p>At this ponit restart cron on OpenWrt.</p>
+<p>mydomain.com:/var/www/notifyme.php</p>
+<pre lang="php">
+< ?php
+mail('admin@mydomain.com', $_GET['host'] . ' has been rebooted', 'uncrypt me!');
+?>
+</pre>
+<p>Enjoy!</p>
+</body>
+</html>

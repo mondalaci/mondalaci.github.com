@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Minimizing CSS and JavaScript HTTP requests automatically on the CMS level</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Minimizing CSS and JavaScript HTTP requests automatically on the CMS level</h1>
+<p>2011-02-16 13:45:32 GMT</p>
+<p>Broadband Internet connections are pretty standard in the modern world nowadays, but despite of this many sites feel slow to load.  Why is that?  This is because of a <a href="http://developer.yahoo.com/performance/">multitude of reasons</a> but the one that really hits home for me is excess HTTP requests.  To be even more specific, I'd like to talk about excess CSS and JavaScript file requests.  It's not unusual for sites to load about a dozen or more CSS and JavaScript files combined which I think is way overkill.</p>
+<p>I came up with an algorithm that could be implemented by any CMS on the API level and it could dramatically reduce the load times of sites and relieve web servers significantly.</p>
+<ol>
+<li>Expose a dedicated API on the CMS level for plugins such as add_cached_css() / add_cached_js() .</li>
+<li>Execute the following points upon every page load:</li>
+<li>Check the modification times of all the CSS / JavaScript files.</li>
+<li>If the modification time of any file has been changed since the last page load or any new file has been added then go on, otherwise abort.</li>
+<li>Save the modification time of all the CSS / JavaScript files, concatenate the files and md5sum the concatenated files.</li>
+<li>Save the concatenated CSS / JavaScript files using their md5sums, such as 7c1735b79f2d13052454c196259ca511.css and 9fee0c4c4391bd75ca4269dac409a0aa.js﻿﻿﻿﻿﻿﻿</li>
+<li>Save the md5sums for the CMS to be able to reference the generated files from the main page.</li>
+</ol>
+<p>A couple of things to note:</p>
+<ul>
+<li>The generated CSS / JavaScript files should be cached forever as it's practically impossible for two distinct generated files to ever collide.</li>
+<li>This algorithm could be implemented by any CMS so that any plugins could use it with no effort.</li>
+<li>No new API functions should be necessary for every CMS.  For example, WordPress already has functions for adding CSS / JavaScript files.  A simple define should be enough to activate such an algorithm.</li>
+</ul>
+<p>Let me know what you think.</p>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stick your file to a specific path with stickfile</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Stick your file to a specific path with stickfile</h1>
+<p>2011-01-20 15:57:40 GMT</p>
+<blockquote><p>
+Update (2011-04-22): Zach let me know in the meantime that there's a much easier way to implement stickfile in BASH:</p>
+<p><script src="https://gist.github.com/mondalaci/5364051.js"></script></p>
+<p>Moral of the story: I should have searched for <a href="http://www.google.com/search?q=inotify+command+line">inotify command line</a> which would lead me to <a href="https://github.com/rvoicilas/inotify-tools/wiki/">inotify-tools</a> which contains inotifywait.
+</p></blockquote>
+<p>And now to the original post:</p>
+<p>My employer uses SonicWALL NetExtender for his VPN needs.  Saying that I'm not a fan of IPsec would be definitely an understatement, but my major problem is that NetExtender overwrites my resolv.conf upon every connection which screws the hostname resolution on my LAN from my laptop.  chmoding or chowning resolv.conf doesn't help because it gets re-chowned and re-chmoded by NetExtender.</p>
+<p>I was thinking about overwriting resolv.conf on a regular basis from a script but it seemed rather inelegant.  But how should I do it otherwise?  With inotify, of course.</p>
+<p>Here's the script I've written which you should save as "stickfile" to a directory that is featured in your $PATH.</p>
+<p><script src="https://gist.github.com/mondalaci/5364020.js"></script></p>
+<p>After I created a valid resolv.conf and saved it as /etc/resolv.conf.orig I only had to execute the following as root before starting up NetExtender:</p>
+<pre lang="bash">
+stickfile /etc/resolv.conf.orig /etc/resolv.conf
+</pre>
+<hr>Comment written by  at 2011-01-20 16:01:11 GMT:<br><p>Nice! Why does your employer use sonicwall? The last time I used it was a piece of shit!</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2011-01-20 16:19:00 GMT:<br><p>Anonymous: I'm not sure why they use NetExtender.  Maybe there was some Cisco gear in the corner that they wanted to use.  :)</p>
+
+<hr>Comment written by Zach at 2011-04-18 02:53:46 GMT:<br><p>Thanks -- this was really helpful (funny, same employer actually). One thing though, I had to modify the py script to use get_wd instead of keeping the global variable around.  Was getting an error in remove_watch(), saying the descriptor was invalid.</p>
+<pre lang="python">
+def add_watch():
+    global watch_manager, file_to_stick
+    watches = watch_manager.add_watch(file_to_stick, IN_MODIFY | IN_DELETE_SELF)
+
+def remove_watch():
+    global watch_manager
+    watch_manager.rm_watch(watch_manager.get_wd(file_to_stick)) 
+</pre>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2011-04-18 09:58:03 GMT:<br><p>Hey Zach,</p>
+<p>Funny indeed, the world is so small.  Thanks for your input.  The above script works perfectly for me but I can imagine others using a different version of Python or pyinotify having issues with it and your fix might just come handy for them.</p>
+
+</body>
+</html>

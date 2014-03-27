@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Samba Made Me Mad</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Samba Made Me Mad</h1>
+<p>2005-05-18 18:32:48 GMT</p>
+<p>If you ever need to mount a Samba share of a Hungarian WinXP box, don't believe to the infos on the net.  They say that you have to use</p>
+<pre>
+mount -t smbfs -o password=yourpassword,codepage=852,iocharset=iso8859-2 //hostname/sharename /targetdir
+</pre>
+<p>But they're wrong.  Maybe something has changed since then, but the correct form is now to use <code>codepage=<b>cp</b>852</code>.  Learn from other's mistakes and don't waste your time as they did.  Seriously.  It's not funny messing around with things like that.</p>
+</body>
+</html>

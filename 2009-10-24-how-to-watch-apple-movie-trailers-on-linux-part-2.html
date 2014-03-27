@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to watch Apple movie trailers on Linux, part 2</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to watch Apple movie trailers on Linux, part 2</h1>
+<p>2009-10-24 22:34:09 GMT</p>
+<p>Apple has recently made some countermeasures to block users who are not using the official QuickTime player to watch <a href="http://www.apple.com/trailers/">their movie trailers</a>, such as Linux users.  This bothered me deeply since I watch those trailers for more than a year and would like to do so in the future.</p>
+<p>I presumed that correctly downloading movies required some user agent related masturbation and Wireshark proved me right when monitoring HTTP on a Windows host.  After that it wasn't a big deal to play an Apple trailer:</p>
+<blockquote><p>mplayer -cache 4048 -user-agent QuickTime/7.5 http://movies.apple.com/movies/disney/achristmascarol/achristmascarol-fte1_480p.mov</p></blockquote>
+<p>This is really nice but I wanted to make it work out of the box.  Though adding the user-agent option to an MPlayer or mplayerplug-in config file seemed like a viable option, unfortunately mplayerplug-in didn't respect this option in any config files.</p>
+<p>Fortunately I realized that the Quicktime user agent string is hardcoded in mplayerplug-in for apple.com <a href="http://www.nabble.com/Site-based-user-agent-td25402383.html">as of 2009-09-23 CVS</a>.</p>
+<p>Since the latest official release is very old, one has to build it from the CVS:</p>
+<blockquote><p>sudo apt-get remove mozilla-mplayer<br />
+cvs -z3 -d:pserver:anonymous@mplayerplug-in.cvs.sourceforge.net:/cvsroot/mplayerplug-in co -P mplayerplug-in<br />
+cd mplayerplug-in<br />
+sudo apt-get install libxul-dev<br />
+GECKO_XPIDL=/usr/lib/xulrunner/xpidl ./configure<br />
+make<br />
+sudo cp mplayerplug-in*.so /usr/lib/mozilla/plugins<br />
+sudo mkdir -p /usr/lib/mozilla/components<br />
+sudo cp mplayerplug-in*.xpt /usr/lib/mozilla/components</p></blockquote>
+<p>You also need to set the cache size of MPlayer so you won't only see <a href="http://lists.mplayerhq.hu/pipermail/mplayer-users/2009-October/078036.html">the first few secs of the movies</a> but the rest also.  Have this line in /etc/mplayerplug-in.conf :</p>
+<blockquote><p>cachesize=4092</p></blockquote>
+<p>Now restart Firefox and use <a href="http://userscripts.org/scripts/show/32311">my Greasemonkey script</a> (also available <a href="https://github.com/mondalaci/greasemonkey-scripts/blob/master/apple-trailers.js">on GitHub</a>) to make the Apple Trailer pages work with mplayerplug-in.</p>
+<p>Enjoy the movies and have fun!</p>
+</body>
+</html>

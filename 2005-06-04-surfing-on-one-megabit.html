@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Surfing on One Megabit!</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Surfing on One Megabit!</h1>
+<p>2005-06-04 10:33:05 GMT</p>
+<p>Holy shit!  It's hard to me to believe this really has happened.  There is a fierce battle going on between Hungarian ISPs for a while.  It goes like this:  One decides to raise its cusomer's bandwidth.  He gains advantage.  The others don't want to leg behind him so they make the same decision.  Yesterday I had 512/128K and today it's 1024/160K.  Cool!</p>
+<p><b>Messing with Fonts</b></p>
+<p>It's relatively painful setting up correctly the coding and the fonts for a semi-hungarian installation.  For me this kind of coding means native encoding, but foreign (English) language.  Here is the Debian way:</p>
+<pre lang="bash">
+echo 'en_US ISO-8859-2' >> /etc/locale.gen
+locale-gen
+echo 'LANG=en_US.ISO-8859-2' >> /etc/environment
+echo 'G_FILENAME_ENCODING=ISO-8859-2  # several gnome apps need this' >> /etc/environment
+</pre>
+<p>After that I realized that several characters (ő and ű) didn't show up correctly in konsole, so I checked for alternative fonts.  At the same time I wanted bitmapped fonts because they render much faster than the others, so I went allowing them.</p>
+<pre lang="bash">
+dpkg-reconfigure fontconfig
+</pre>
+<p>Then I realized that KDE apps look like shit because they use unantialised fonts.  I made contact with several Debian developers and have figured out that KDE uses bitmapped fonts by default.  Bitmapped fonts were not allowed in the beginning  so KDE falled back to outline fonts.  After I set the default fonts in kcontrol, everything were fine.</p>
+<p><b>101 Things to Know about GNOME</b></p>
+<p><a href="http://2005.guadec.org/">GUADEC 2005</a> is over.  Here's a <a href="http://www.gnome.org/~gman/blog//02062005-1">nice presentation</a> on the history and direction of GNOME.  It's both really informative and very funny.</p>
+</body>
+</html>

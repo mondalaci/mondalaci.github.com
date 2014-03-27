@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Thumbnailing Movies in the Right Way</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Thumbnailing Movies in the Right Way</h1>
+<p>2006-02-03 16:24:47 GMT</p>
+<p><strong>About Thumbnailing in General</strong></p>
+<p>Thumbnailing is a very nice feature, although I think it's not essentially usable in case of most formats.  Speaking of audio files, it's clearly impossible, of course and textual files generally don't differ that much that one could efficiently differentiate them based on their thumbnails.  Image files however, have an obvious relevance here and it's pretty straightforward to thumbnail all of them.  The last type, which really hits home for me are movies.</p>
+<p><strong>Why Movie Thumbnails Suck?</strong></p>
+<p>Movies are special kinds of animals in the context of thumbnailing, because picking up a random image out of a movie stream generally results in an irrelevant image.  We cannot really associate a randomly selected image with the movie in our mind, because statistically it's a kind of image that loosely relates to the content of the actual movie.  Imagine what it's like to see an ocean with a boat, an average american house, a city from 10 000 feet, or a cast list as a thumbnail?  Could you tell me which movie it's taken from?  I can hardly think so.</p>
+<p>Unfortunately every desktops that exist today operate by this policy.  Windows XP captures the first frame of every movie file as its thumbnail.  Nautilus essentially does the same, but it captures an image that is at the 1/3th of the movie, which is a smarter policy I guess considering that most movies start with black screen.</p>
+<p><strong>Best Case Scenario</strong></p>
+<p>So what would be the best scenario for thumbnailing movie files?  The whole point of movie thumbnails is that the user can associate the thumbnail with the movie it belongs to, so the user must be provided with an interface which makes him able to associate a thumbnail that is actually relevant to him.  I see two possibilities for achiving this goal:</p>
+<ol>
+<li>Implement a mini movie player that provides a way to capture a frame into a thumbnail.  Unfortunately GStreamer isn't wrapped in Mono yet, so I cannot implement this solution in <a title="http://monda.hu/projects/uc" href="http://monda.hu/projects/uc">UC</a>.</li>
+<li>Randomly capture more images of the movie so that the user can choose of them the one which he likes the best.  If he doesn't like either of them, he can recapture the same number of images any time.  This solution has the undisputable advantage that it can be easily implemented as a command line application as you'll see below.  I also think it's a more convenient approach.</li>
+</ol>
+<p><strong>Thumbnailing in GNOME</strong></p>
+<p>Several months ago using Nautilus I was impressed by its movie thumbnailing feature considering how well it handled different movie formats.  Later when I played with <code>gconf-editor</code>, I could easily understand the thumbnailing infrastructure of GNOME.  Under the <code>/desktop/gnome/thumbnailers</code> gconf key, one can find all the thumbnailing applications GNOME applications fork to get the related thumbnail file of the associated MIME type.</p>
+<p><strong> The New Way of Movie Thumbnailing </strong></p>
+<p>I noticed that every MIME movie file is referenced to <code>gnome-video-thumbnailer</code> on my system which is symlinked to <code>totem-video-thumbnailer</code>.  In the next moment I was fetching the source of <a title="http://www.gnome.org/projects/totem/" href="http://www.gnome.org/projects/totem/">Totem</a>.  Totem can be compiled with two backends: <a title="http://gstreamer.freedesktop.org/" href="http://gstreamer.freedesktop.org/">GStreamer</a> and <a title="http://xinehq.de/" href="http://xinehq.de/">xine</a>, but for some wicked reasons, only xine worked well for me.  As soon as I saw how well it worked I started to implement the above "Best Case Scenario #2" features.  So here's what I've done a la ChangeLog:</p>
+<ul>
+<li>Separate the necessary files that are required to build <code>totem-video-thumbnailer</code> with the xine backend and put them in one flat directory.</li>
+<li>Replace configure with Makefile.</li>
+<li>Fix bug in <code>bacon-video-widget-xine.c</code> to require glib 2.10.0 instead of glib 2.8.10 for <code>calling g_async_queue_sort()</code>.</li>
+<li>Gracefully rename <code>totem-video-thumbnailer</code> to <code>depot-video-thumbnailer</code>.</li>
+<li>Remove gstreamer hacks from <code>depot-video-thumbnailer.c</code> since they're not used with xine.</li>
+<li>Use bilinear filtering instead of nearest neighbor sampling for resizing movie frames and images for better quality.</li>
+<li>Implement randomized mass image capturing and modify the CLI accordingly.</li>
+</ul>
+<p>I've just committed this babe to the <a href="https://github.com/mondalaci/ultimate-commander/tree/master/depot-video-thumbnailer">UC repo</a>.  You can find it in the <code>depot-video-thumbnailer</code> directory.  If you wanna try it, install the <code>xine-dev</code> and <code>totem</code> (and probably other) packages on your Debian distribution or look for similarly-named packages on other distributions.  After that use <code>make</code> and it should compile.</p>
+<p>It's pretty easy to use it actually:</p>
+<pre class="code">lee@whisper:~/projects/uc/depot-video-thumbnailer$ ./depot-video-thumbnailer
+Usage: ./depot-video-thumbnailer [-s &lt;size&gt;] &lt;number-of-thumbnails&gt;
+       &lt;input&gt; &lt;output-prefix&gt; [xine backend options]</pre>
+<p>Let's give it a try on one of my favorite movies, <a title="http://imdb.com/title/tt0117500/" href="http://imdb.com/title/tt0117500/">The Rock</a>:</p>
+<pre class="code">$ ./depot-video-thumbnailer -s 384x348 4 the-rock-cd2.avi rock
+Capturing image 1 of 4 as rock1.png...
+Capturing image 2 of 4 as rock2.png...
+Capturing image 3 of 4 as rock3.png...
+Capturing image 4 of 4 as rock4.png...</pre>
+<p>Wanna see how the thumbnails look like?</p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/rock-capture-1.png" alt="rock-capture-1" width="384" height="138" /></p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/rock-capture-2.png" alt="rock-capture-2" width="384" height="138" /></p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/rock-capture-3.png" alt="rock-capture-3" width="384" height="138" /></p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/rock-capture-4.png" alt="rock-capture-4" width="384" height="138" /></p>
+<p>They seem pretty neat.  Which one would you choose?</p>
+<p>As a last note, maybe you should use <code>depot-video-thumbnailer</code> instead of <code>totem-video-thumbnailer</code>, because it uses bilinear filtering so your thumbnails won't look that messy.</p>
+</body>
+</html>

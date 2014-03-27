@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Supercharging storage space on the ASUS WL500GPV2 with OpenWrt</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Supercharging storage space on the ASUS WL500GPV2 with OpenWrt</h1>
+<p>2009-11-06 23:40:30 GMT</p>
+<p>Lately I've extended <a href="http://monda.hu/blog/2009/08/17/installing-openwrt-kamikaze-on-the-asus-wl500gpv2/">my HOWTO</a> on supercharging the storage space of your ASUS WL500GPV2 with OpenWrt.</p>
+<p>I'm so delighted to make this work because from now on:</p>
+<ul>
+<li>the whole root partition is able to store 8G - the size of the Kingston pendrive I've plugged in</li>
+<li>the extension is completely transparent and it doesn't break the router on restart when the pendrive is not plugged in</li>
+<li>everything is faster including package managment because the CPU doesn't need to do any compression on JFFS</li>
+</ul>
+<p>First I wanted to use JFFS instead of ext2 but smart folks <a href="https://forum.openwrt.org/viewtopic.php?pid=96221">told me</a> that wear levelling is integrated into pendrives.  (JFFS can only be used with MTDs anyways.)</p>
+<p>This hack has dozens of practical uses such doing any logging on the router or SCPing backups from external hosts to the router on a timely basis.</p>
+<p>As I dwelve more and more deeply into OpenWrt I start to realize how brilliant it is.  The use of SquashFS to store the image and the the mini_fo'ed JFFS on top of it as a copy-on-write file system is the most advanced solution one could ever devise to maximize filesystem storage space.  It makes me laugh when I compare OpenWrt to the official firmware of the typical SOHO router.</p>
+<p>Thanks for all the documentation on the net, especially for <a href="http://nuwiki.openwrt.org/oldwiki/OpenWrtDocs/KamikazeConfiguration/PackagesOnExternalMediaHowTo">the Packages on external media HowTo</a>.</p>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Streamlined OpenVPN configuration for LANs</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Streamlined OpenVPN configuration for LANs</h1>
+<p>2009-11-20 01:34:52 GMT</p>
+<p>I have a reoccuring task of setting up OpenVPN for the LANs of small enterprises and adding / removing users.  Usually they have a dumb little TP-Link or D-Link router facing the public Internet, we bring a relatively powerful PC to their office and my job is to configure the PC as an OpenVPN gateway (among other things).  OpenVPN traffic gets forwarded to our PC through the dumb little router using port forwarding.  Well, this is not particularly challenging to me but I was looking for a way to automate this process as much as I can because managing clients can be cumbersome.</p>
+<p>Let's clarify a task at hand: An OpenVPN gateway has to be set up for a /24 LAN in order to provide access to all hosts on the LAN.  Privilege management will be implemented using PKI.  On top of that we'll use tls-auth so the HMAC firewall will only answer if the received packet signature is valid, thus effectively making the OpenVPN service undetectable by any scanning techniques.</p>
+<p>The LAN should reside on a class A private subnet (10.x.y.0/24) where x and y should be randomly choosen because it'll minimize the probability of address collision with other subnets used with OpenVPN.</p>
+<p>First of all, the PKI should not reside on the server on which the OpenVPN daemon runs for security reasons.  I store it on my home partition which is heavily encrypted and regularly backed up.  I create a directory under ~/openvpn for every OpenVPN installations where I store the server and client configuration files and the PKI.  Only the needed files will be transferred to the server or to the clients.</p>
+<p>This post will describe the implementation of the above configuration and will provide a set of scripts to make the task very efficient.</p>
+<p><strong>1) Set up the ~/openvpn infrastructure<br />
+</strong></p>
+<p>mkdir ~/openvpn<br />
+cd ~/openvpn</p>
+<p># User credentials will be temporarily published under the directory below for user download.  This should be a trusted host.<br />
+# It's probably needless to say but I mention that $PUBLISH_URL should not under any circumstances be listable by the web server.<br />
+cat &gt;config &lt;&lt;END<br />
+PUBLISH_PATH=<strong>yourhost:/var/www/pki</strong><br />
+PUBLISH_URL=<strong>http://yourhost.com/pki</strong><br />
+END</p>
+<p>wget <a href="http://monda.hu/blog/wp-content/uploads/openvpn-scripts.tar.bz2">http://monda.hu/blog/wp-content/uploads/openvpn-scripts.tar.bz2</a><br />
+tar xjf openvpn-scripts.tar.bz2 -C ~/bin<br />
+rm openvpn-scripts.tar.bz2</p>
+<p><strong>2) Set up the server directory</strong></p>
+<p>cd ~/openvpn<br />
+mkdir <strong>SERVERNAME</strong><br />
+cd <strong>SERVERNAME</strong></p>
+<p><strong>3) Set up the PKI</strong></p>
+<p>mkdir easy-rsa<br />
+cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0/* easy-rsa<br />
+cd easy-rsa<br />
+# Edit the all the KEY_* variables in ./vars so you won't have to type them anymore.<br />
+. ./vars<br />
+./clean-all<br />
+./build-ca<br />
+./build-key-server server<br />
+./build-dh<br />
+cd ..<br />
+mkdir ccd</p>
+<p><strong>4) Create server configuration</strong></p>
+<p>openvpn --genkey --secret ta.key</p>
+<p>cat &gt;server.conf &lt;&lt; END<br />
+mode server<br />
+local 10.<strong>X</strong>.<strong>Y</strong>.<strong>Z<br />
+</strong> tls-server<br />
+dev tun<br />
+proto udp<br />
+port 1194<br />
+client-config-dir ccd<br />
+ifconfig 10.8.0.1 10.8.0.2<br />
+push "route 10.<strong><em>X</em></strong><em>.</em><strong><em>Y</em></strong>.0 255.255.255.0"<br />
+push "route 10.8.0.0 255.255.255.0"<br />
+route 10.8.0.0 255.255.255.0<br />
+keepalive 10 120<br />
+ca ca.crt<br />
+cert server.crt<br />
+key server.key<br />
+dh dh1024.pem<br />
+tls-auth ta.key 0<br />
+log server.log<br />
+verb 3<br />
+END</p>
+<p># This will be used by the synchronization script to rsync the configuration to the server through SSH.<br />
+echo SERVERHOSTNAME &gt; server.hostname</p>
+<p><strong>5) Create general client configuration<br />
+</strong></p>
+<p># This is the client configuration from which the all individual client configurations will be generated.<br />
+# Don't touch "username" as it will be automatically replaced with the name of the relevant user during the generation process.</p>
+<p>cat &gt;client.conf &lt;&lt; END<br />
+dev tun<br />
+proto udp<br />
+nobind<br />
+remote <strong>OPENVPN-GATEWAY-HOST</strong> 1194<br />
+client<br />
+ca server.crt<br />
+tls-auth server-ta.key 1<br />
+cert username.crt<br />
+key username.key<br />
+verb 3<br />
+END</p>
+<p><strong>6) Add users<br />
+</strong></p>
+<p>openvpn-add-user username1<br />
+openvpn-add-user username2<br />
+...</p>
+<p># The configuration will be automatically transferred to the server.</p>
+<p><strong>7) Publish client credentials</strong></p>
+<p>openvpn-publish-user-credentials username1<br />
+openvpn-publish-user-credentials username2<br />
+...</p>
+<p># Which outputs something like this:<br />
+# User credentials are accessible from http://yourhost.com/pki/servername-username1-65378842373270.zip<br />
+# User credentials are accessible from http://yourhost.com/pki/servername-username2-10200344763221.zip<br />
+# ...</p>
+<p># These URLs are meant to be mailed to the relevant users and removed eventually.</p>
+<p><strong>8) Unpublish client credentials</strong></p>
+<p>openvpn-unpublish-user-credentials username1<br />
+openvpn-unpublish-user-credentials username2<br />
+...</p>
+<p># Which removes the relevant files from the server.</p>
+<p><strong>9) Revoke client credentials</strong></p>
+<p>openvpn-revoke-user-credentials username</p>
+<p># The configuration will be automatically transferred to the server.</p>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wifi is not designed for seamless switchover</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Wifi is not designed for seamless switchover</h1>
+<p>2012-07-13 10:05:20 GMT</p>
+<p>A while ago I embarked on the quest of extending wifi coverage to our whole backyard.</p>
+<p>Having a venerable ASUS WL-500GPv2 sitting at the front side of the house, my natural approach was to place another access point (AP) near the back side of the house which would cover our whole backyard.  That is, in theory.  As it turns out in reality things are a little bit more complex.</p>
+<p>After installing the AP I was getting complaints from my sizeable user base (my sister and my mother) that the connectivity of their smartphones and tablets got shitty beyond imagination.  After investigating this problem I realized that upon entering the house from the backyard wifi devices connected to the AP and as they moved towards the front of the house this connection stayed alive despite the router having a much stronger signal level at this point than the AP did.  I even set up a <a href="http://superuser.com/questions/122441/multiple-access-points-for-the-same-ssid">multiple-AP (roaming) network</a> configuration <a href="http://superuser.com/questions/429664/why-is-my-wi-fi-switchover-not-happening-until-the-original-signal-dies">as suggested</a> but the same thing was happening, only that I couldn't see right away which AP I was connected to.</p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/wifi-switchover-fail.jpg" alt="wifi-switchover-fail" width="640" height="480" /></p>
+<p>I was dumbfounded by what I saw.  I assumed that wifi devices always (re)connect to the AP with the strongest signal level.  Wouldn't this be the Right Thing to do, after all?  Well, not so much.</p>
+<p>The first problem is switchover lag.  Wifi is not GSM.  With GSM you can travel through the country, move across dozens of cell towers without noticing a thing.  With wifi, switchover lag is noticable and is highly unwanted when using streaming applications, especially VoIP.</p>
+<p>The second problem is deciding when to switch over.  The hardcoded client policy is to switch over when the current AP becomes totally unreachable.  Another policy could be switching over as soon as there's another AP in the vicinity with a slightly stronger signal level.  This wouldn't be optimal either, however.  Just imagine being located right between two APs and taking some steps back and forth and back and forth.  That'd result in lots of unwanted switchovers.  I guess manufacturers could put two wifi transceiver into each device to solve this issue but it probably wouldn't justify the price and this method would draw excess battery power.</p>
+<p>Given that clients implement a hardcoded switchover policy let's see what could we do on the server side.  A buddy of mine who worked as an admin at an ISP suggested using RouterBOARD appliances with which one can specify a dB treshold below which the appliance disconnects the relevant clients so those clients can switch over to another AP in the vicinity.  Unfortunately, such uber feature is out of reach for most and I don't know about any other devices implemeting this feature, not even OpenWrt.</p>
+<p>So what did I end up with?  My buddy also suggested placing my router to the attic and ditching the AP.  Now the overall coverage is better than it used to be.  It's not perfect but the signal is almost always within reach on our property.  As a rule of thumb one should place the wifi router to the highest and most central location.  I'm pretty happy overall, althought a wireless-N MIMO router would probably boost signal levels like crazy but I'm in savings mode right now and I don't wanna spend a ton of money on an ASUS RT-N66U Dark Knight until it's totally justified.</p>
+</body>
+</html>

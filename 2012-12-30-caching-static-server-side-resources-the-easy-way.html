@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Caching static server-side resources the easy way</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Caching static server-side resources the easy way</h1>
+<p>2012-12-29 23:14:06 GMT</p>
+<p>Static resources are static because those never change thus always should be cached forever, right?  Well, more often than not some of those files eventually change in which case the files in question must be renamed to be updated by the client which is a pain, especially if you use revision control (which you should).</p>
+<p>Lately I came up with a new way to cache static server-side resources as efficiently and effortlessly as possible.  Consider the following nginx configuration fragment:</p>
+<p><script src="https://gist.github.com/mondalaci/5305581.js"></script></p>
+<p>From this point on you can reference a resource like <b>http://yoursite.com/images/background.png</b> as <b>http://yoursite.com/static/1/images/background.png</b> to be cached forever which you can change to <b>http://yoursite.com/static/2/images/background.png</b> in case the contents of this file gets updated.  Alternatively, instead of incremental numeric values you may want to use the hash of the current Git commit or any other identifier.</p>
+</body>
+</html>

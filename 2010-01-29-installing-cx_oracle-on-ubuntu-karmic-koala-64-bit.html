@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Installing cx_Oracle on Ubuntu Karmic Koala, 64 bit</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Installing cx_Oracle on Ubuntu Karmic Koala, 64 bit</h1>
+<p>2010-01-29 02:48:03 GMT</p>
+<p>I'm using Oracle 10g, but you're free to download any other versions that you want.</p>
+<p>wget http://prdownloads.sourceforge.net/cx-oracle/cx_Oracle-5.0.2-10g-py26-1.x86_64.rpm?download<br />
+# We should use alien but it didn't work for me.<br />
+rpm2cpio cx_Oracle-5.0.2-10g-py26-1.x86_64.rpm | cpio -id<br />
+sudo cp usr/lib64/python2.6/site-packages/cx_Oracle.so /usr/lib/python2.6<br />
+# Go to the <a href="http://www.oracle.com/technology/software/tech/oci/instantclient/htdocs/linuxx86_64soft.html">Oracle Instant Client download page</a> and accept their fucking license, then download <strong>Instant Client Package - Basic</strong> for version 10.2.0.3, that is <strong>instantclient-basic-linux-x86-64-10.2.0.3-20070103.zip</strong><br />
+unzip instantclient-basic-linux-x86-64-10.2.0.3-20070103.zip<br />
+sudo cp instantclient_10_2/{libclntsh.so.10.1,libnnz10.so} /usr/local/lib<br />
+sudo ldconfig</p>
+<p>Installing such proprietary shit like Oracle (related software) is a bad experience too many times.</p>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to measure the actual memory usage of Linux processes</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to measure the actual memory usage of Linux processes</h1>
+<p>2009-12-01 10:56:55 GMT</p>
+<p>This is a much harder question than one might think as VSZ and RSS are not accurate.  /proc/{PID}/smaps provides the most accurate information as of Linux 2.6.16.</p>
+<p><a href="http://www.pixelbeat.org/scripts/ps_mem.py">ps_mem.py</a> is a nice script that summarizes smaps information on a per application basis and gracefully falls back to measure VSZ when no smaps support is found.</p>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File System Monitoring on Linux</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>File System Monitoring on Linux</h1>
+<p>2005-09-13 17:32:20 GMT</p>
+<p>I've been recently involved in the topic of file system monitoring on Linux.  That's because my master thesis project is strongly based on this feature so I needed to take a look how things work.</p>
+<p>Everyone who is somewhat informed about filesystems and Linux immediately thinks of inotify and (s)he's right, inotify seems to kick serious ass indeed.</p>
+<p>I'd like to thank all the inotify folks for creating this miracle, because before that there was an abundance of shit in this area.  There was <a href="http://oss.sgi.com/projects/fam/links.html">FAM</a> and <a href="http://kerneltrap.org/node/3847">dnotify</a> and both of them sucked really hard.  So bless ya, inotify devs!</p>
+<p>The first inotify patch dates back to Linux 2.6.5 and it's part of the mainstream kernel as of Linux 2.6.13.  One naive being may think that now inotify is perfect, but <a href="http://blogs.gnome.org/view/ryanl/2005/09/01/">others prove him stupid</a>.  Well, hopefully it'll be (more) perfect in 2.6.14, but anyway it seems fairly usable and robust for even now.</p>
+<p>In case you wanna learn about inotify, this <a href="http://www-128.ibm.com/developerworks/linux/library/l-inotify.html">DeveloperWorks article</a> is just for you.  LWN has also wrote a <a href="http://lwn.net/Articles/104343/">nice article</a> on the subject and this <a href="http://rlove.org/log/2005071401.html">post</a> from <a href="http://rlove.org/">RML</a>'s <a href="http://rlove.org/log">blog</a> worths gold likewise.  You probably wanna check out <a href="http://www.kernel.org/pub/linux/kernel/people/rml/inotify/">his inotify directory</a> too on kernel.org.</p>
+</body>
+</html>

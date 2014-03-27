@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to wake on LAN by hostname on OpenWrt</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to wake on LAN by hostname on OpenWrt</h1>
+<p>2009-08-17 10:42:55 GMT</p>
+<p>opkg update<br />
+opkg install etherwake<br />
+opkg remove wol<br />
+echo '#!/bin/sh'$'\n'"etherwake \`grep \" \$1\\$\" /etc/ethers | awk '{print \$1}'\`" &gt; /usr/bin/wol<br />
+chmod 755 /usr/bin/wol<br />
+wol yourhostname</p>
+</body>
+</html>

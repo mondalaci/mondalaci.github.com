@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>API Inconsistency Can Be Painful</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>API Inconsistency Can Be Painful</h1>
+<p>2006-07-07 00:39:32 GMT</p>
+<p>I just wanted to install the <a href="http://meta.wikimedia.org/wiki/ConfirmEdit_extension" title="http://meta.wikimedia.org/wiki/ConfirmEdit_extension">FancyCaptcha</a> extension for the Ultimate Commander MediaWiki to block those pighead spammers from autoregistering fake accounts.  Sounds simple, doesn't it?  It got pretty messy, unfortunately.  The extension didn't wanted to work, so I went to #mediawiki at freenode for help.  After a while it finally became clear what the problem was.</p>
+<blockquote><p>
+&lt;mlaci&gt; is there a chance that the fancycaptcha plugin in the svn is totally fucked up? it seems to me that it doesn't even register correctly its own special page.<br />
+&lt;brion&gt; mlaci: you running 1.7?<br />
+&lt;brion&gt; if not, try upgrading<br />
+* brion points to release candidate link in channel topic<br />
+&lt;mlaci&gt; brion: i'm running 1.6.7. the extension seems to register its special page by assigning an array to #wgSpecialPages['Captcha'] instead of creating a SpecialPage object as the rest of the special pages. so did the api change in 1.7?<br />
+&lt;brion&gt; yes.<br />
+&lt;CIA-12&gt; brion * r15395 /branches/REL1_7/phase3/RELEASE-NOTES: add note about new special page registration interface<br />
+&lt;mlaci&gt; brion: it's very useful to know about
+</p></blockquote>
+<p>A few minutes later, I finally succeeded.</p>
+<blockquote><p>
+&lt;mlaci&gt; revision 15016 seems to have a beautifully working fancycaptcha extension for mediawiki<br />
+* mlaci is a happy bastard
+</p></blockquote>
+<p>Moral of the story:</p>
+<ul>
+<li>Do not suppose that the API is consistent across a project.</li>
+<li>Do a "<code>svn co -r 15016 http://svn.wikimedia.org/svnroot/mediawiki/trunk/extensions/ConfirmEdit</code>" if you wanna fetch the FancyCaptcha extension for MediaWiki 1.6.7.</li>
+</ul>
+</body>
+</html>

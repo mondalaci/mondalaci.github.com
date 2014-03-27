@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Indentation Hell</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Indentation Hell</h1>
+<p>2005-06-03 17:20:28 GMT</p>
+<p>I'm currently working on a Python application that has about 1500 lines of code.  The whole stuff was in one file and it was a pain maintaining it in this form so I decided to make separate files per classes.  At the same time a class browser would really skyrocket my productivity, I thought.  Throughout the development I used mcedit, later Emacs, then Kwrite and my last choice is <a href="http://www.die-offenbachs.de/detlev/eric3.html">eric3</a>, a fascinating Python IDE with class browser and lots of goodies.  The only thing I don't like in it is the Qt GUI, but user interface inconsistency probably won't kill me.</p>
+<p>My switch from mcedit to Emacs is not hard to understand I guess considering its features and the fact that I love it.  But my next switch from Emacs to Kwrite doesn't make much sense, right?  I can justify my decision with one word: Indentation.</p>
+<p>When I moved to Emacs and visited the original source file, I observed that the lines are incorrectly indented in it.  When I changed several of them, Python immediately reported the indentation errors as soon as I executed the script.  At that time I just wanted to get over the whole thing, tried Kwrite and it handled the indentation correctly.  After that when the code has grown bigger and I needed eric3, the same problem happened and I had no choice then.  I had to investigate this problem.</p>
+<p>After some time, I realized that a lot of *nix editors (like mcedit) uses half-tabs.  That's an evil concept.  It's basically the most stupid way one can encode indentation.</p>
+<p>In the simplest case, there were only tabs or spaces.  In a more complex case, there were both tabs and spaces and tabs had a fixed size.  And finally in the braindead case, there were half-tabs.  I've written <a href="/blog/wp-content/uploads/spacify.py">spacify.py</a> that solves this problem by converting half-tabs to spaces.</p>
+<p><b>Update</b>: In the meantime I've realized that the GNU expand utility does the same thing and is much more mature than my spacify script, so you should probably use expand.</p>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Evaluating Development Tools</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Evaluating Development Tools</h1>
+<p>2006-04-28 10:32:13 GMT</p>
+<p>As an early adopter of new technologies, I'm constantly looking for new flows of ideas and software in the cyberspace.  I'm doing this specifically in regard to UC nowadays.</p>
+<p>As <a title="http://www.monodevelop.com" href="http://www.monodevelop.com">MonoDevelop</a> 0.10 came out, I had to test it and guess what?  It became pretty mature!  Formerly I used Eclipse, because that was the only IDE with C# syntax highlighting, good CVS support and usable GUI.  Unfortunately it doesn't have any advanced C# features, so development was not very smooth with it.</p>
+<p>MonoDevelop has many advanced features.  Speaking of me, code completition, application output navigation and code template insertion provide me the greatest help and really skyrocket my productivity, but it has other nice features as well.</p>
+<p>Let's see a shot of this babe:</p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/monodevelop.png" alt="monodevelop" width="640" height="512" /></p>
+<p>Regarding its SVN support, it has issues.  It makes very nice diffs, but it also kills MonoDevelop so bad when committing.  It's worth enabling SVN support, though and getting to know what features you should and what features you shouldn't use.</p>
+<p>MonoDevelop also has a built in GUI designer, Stetic.  I very like its single window interface and signal handler code template generation feature, but I found that it has minor issues which are showstoppers for me, which I won't go into detail with.  However it should clearly replace Glade some time in the not-so-distant future.  It's interesting that it has a little bit different approach than Glade has.  Stetic stores GUI description in a (non-Glade) XML, but instead of pulling in and parsing the GUI runtime, as Glade does, it generates C# GUI code which gets compiled with the rest of your application.  Stetic has the advantages that generated code probably runs faster than XML parsing, it has no additional dependencies and its interface is also a pleasure to use.  I will evaluating Stetic in a regular basis and fill bug reports as necessary as soon as I'll have more time for it.</p>
+<p>I also played with <a title="http://gazpacho.sicem.biz" href="http://gazpacho.sicem.biz">Gazpacho</a>.  It has a better interface than Glade has but it generated bad XML that Glade couldn't pull in, so this was an instant deal breaker.</p>
+<hr>Comment written by anonymous coward at 2006-08-28 03:01:15 GMT:<br><p>I still think code generation is evil.<br />
+It only works if your code and your IDE are strongly coupled.<br />
+Something which I find rather disturbing, ever tried to edit an old netbeans project?</p>
+
+<hr>Comment written by <a href="http://mondalaci.objectis.net">Laci</a> at 2006-08-28 16:09:32 GMT:<br><p>I haven't got any experience with NetBeans yet, but I'm willing to try it somewhere in the near future.  I'm not saying that code generation is the ultimate tool for every tasks, but I have no doubts that it's very powerful if applied correctly.  MonoDeveop is strongly coupled with Stetic in a useful manner based on what I seen.</p>
+
+</body>
+</html>

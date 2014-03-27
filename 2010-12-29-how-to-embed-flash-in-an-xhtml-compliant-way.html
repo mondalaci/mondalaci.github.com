@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to embed Flash in an XHTML compliant way</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to embed Flash in an XHTML compliant way</h1>
+<p>2010-12-29 01:01:56 GMT</p>
+<blockquote><p>Update (2011-04-27): You may wanna take a look at my <a href="http://monda.hu/blog/2011/04/24/ultimate-flash-xhtmlizer-0-1-released/">Ultimate Flash XHTMLizer WordPress plugin</a> which implements the algorithm below.</p></blockquote>
+<p>Many web developers were there: you wanna embed Flash in an XHTML compliant way.  "It shouldn't be hard" - you may think first.  Most of us finally conclude that it's nowhere near obvious.  But first, a word about the importance of XHTML compliance...</p>
+<p>I'm fully aware that most "web developers" don't give a shit about XHTML compliance and I can understand them to a degree.  Try to validate your favorite sites and you'll quickly realize that there are hardly any sites that are completely valid.  There are many browser quirks that make our lives very hard and we may don't have enough time to try to comply to every single rule.  Hell, <a href="http://monda.hu/blog/2008/10/17/new-window-links-in-a-standards-compliant-world/">XHTML Strict is out of control</a>!</p>
+<p>On the other hand, I still think that being XHTML compliant is important.  I'm not actually concerned about the minor, but rather the major errors.  Missing the alt attribute of an image is no big deal but failing to close tags can be.  "The browser will correct such errors" - you may say and you may be right but browsers handle such issues differently and you cannot tell what will happen in which browser.  To summarize this paragraph, the way I see it is this: even if there are some minor validation errors, those can be disturbing enough to not notice the major errors so your best bet is to be 100% XHTML compliant.</p>
+<p>After I hopefully persuaded you about the importance of XHTML compliance, let's get back to the solution.   Once upon a time A List Apart wrote a <a href="http://www.alistapart.com/articles/flashsatay">fascinating article</a> about the topic back in 2002.  I've tested their method with the help of some of my friends and guess what: it didn't work consistently.  It might have worked back then but 8 years have passed by and it failed in many of the browsers we tested with.  I've also tried out <a href="http://validifier.com/">validifier.com</a> which is a very interesting tool.  It generally worked with YouTube videos but failed with Flickr slideshow embeds in many browsers.  I've tested everything under the sun and nothing worked.  I had to devise a solution that worked predictably all the time.</p>
+<p>After tinkering for a while I came up with a pretty clear solution that involves using JavaScript and seems to work in all browsers all the time.  The necessity of using JavaScript is definitely the most ineloquent aspect of my solution but I don't consider it such a big deal in this web2.0ish age.  Also, I'd like to note that there are some articles on the web about non-JavaScript based "solutions".  Every such articles revolves around transforming the embed code in a way to be XHTML compliant and they are XHTML compliant but they do not work across every major browser.  It's simply not possible to do without JavaScript.  If you say it is then you didn't test in every major browser using every major OS.</p>
+<p>My method involves <a href="http://php.net/manual/en/function.htmlspecialchars.php">htmlspecialchars</a>'ing the Flash embed code, putting it between divs, hiding it with CSS and un-htmlspecialchars'ing it using JavaScript.  That's it, but let's see it in detail.</p>
+<p><strong>1) The CSS</strong></p>
+<pre lang="css">
+.flash {color: #fff; }  /* Make the color the same as your background color. */
+</pre>
+<p><strong>2) The HTML</strong></p>
+<p>htmlspecialchars'ify the code and put it between <b>&lt;div class="flash"&gt;</b> and <b>&lt;/div&gt;</b> tags and finally insert it to your page.  I've made a <a href="http://monda.hu/flash-embed-code-converter.html">handy conversion tool</a> just for you!</p>
+<p><strong>3) The JavaScript</strong></p>
+<pre lang="javascript">
+$(document).ready(function() {
+   $('.flash').each(function(index) {
+       $(this).html($(this).text())
+   });
+});
+
+</pre>
+<p>Ok, this uses jQuery instead of pure JavaScript but I won't work around the getElementsByClassName() bug of IE for sure.</p>
+<p>Be aware that if you use this method in a CMS that generates a feed from a page then your feed will contain the embed code in plaintext format which you surely don't want.  As for me, I'm only concerned about WordPress.  My beloved readers who are on my feed are currently screwed in this respect but I'm thinking about writing a WordPress plugin that automatically does the above conversion process without affecting the feed.</p>
+<p><b>Thanks!</b></p>
+<p>I'd like to thank to CsLaci, <a href="http://domotorgyimesi.net/">Dömi</a>, Eszter, Gyula, JoE, <a href="http://bartol.hu/">Luigi</a> and Tenta for testing this embed method in about two dozens of browsers on every major OS.</p>
+</body>
+</html>

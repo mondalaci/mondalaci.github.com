@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lock your laptop and turn off display with the touch of a keystroke in Ubuntu Karmic</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Lock your laptop and turn off display with the touch of a keystroke in Ubuntu Karmic</h1>
+<p>2010-01-12 14:33:06 GMT</p>
+<p>I think this feature will soon be standard in Ubuntu as many users requested it.  It's absolutely mandatory for me because every time I leave my laptop I carry out this action, even at home.  Yeah, call me paranoid...</p>
+<p>I've written a simple script to deal with the issue:</p>
+<pre lang="bash">
+#!/bin/bash
+gnome-screensaver-command -l
+sleep 3
+xset -display :0.0 dpms force off
+</pre>
+<p>You're encouraged to bind it to any key combo.  It should work perfectly out of the box but a <a href="https://bugs.launchpad.net/ubuntu/+source/gnome-power-manager/+bug/447728">gnome-power-manager related bug</a> enables the display some seconds or minutes later randomly, so we have to</p>
+<pre lang="bash">
+killall gnome-power-manager
+</pre>
+<p>and it should be pretty fine.  For those who can't afford to live without gnome-power-manager an <a href="http://alexcabal.com/turn-your-laptop-screen-off-with-a-keyboard-shortcut-in-ubuntu-karmic/">alternative (and in my opinion suboptimal) workaround</a> exists.</p>
+<hr>Comment written by <a href="http://usemoslinux.blogspot.com">Pablo</a> at 2010-12-15 02:17:57 GMT:<br><p>Hi Lazlo! I've been using your script and followed your sugestions, except for removing gnome-power-manager or killing it.</p>
+<p>However, I think I've found a (quite simple) workaround for this (so called) "bug" (which now I'm not really sure it is so)... just increase the number of seconds to sleep to, lets say... 5.</p>
+<p>So, my script goes like this:</p>
+<p>#!/bin/bash<br />
+gnome-screensaver-command -l<br />
+sleep 5<br />
+xset -display :0.0 dpms force off</p>
+<p>Now, everything works just fine! :)</p>
+<p>For those of you who don't want to lock the screen, I would recommend to sleep 1 sec before executing xset (otherwise it won't work). So, this second script would include the following lines:</p>
+<p>#!/bin/bash<br />
+sleep 1<br />
+xset -display :0.0 dpms force off</p>
+<p>Apparently, it might be that clicking or moving the mouse or maybe pressing the key combo, sends later events... that's why, Linux first needs some time to deal with those before you can successfully call xset.</p>
+<p>Hope this helps you all in my same situation!</p>
+<p>Greetings from Argentina! Pablo.</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2010-12-15 11:51:55 GMT:<br><p>Hey Pablo,</p>
+<p>I've just tried your method of waiting 5s instead of 3s and it didn't work.  You may be using an upgraded version of gnome-power-manager which doesn't have this bug.  Anyways, I'll update to 10.10 soon and hopefully this problem will get solved.</p>
+
+<hr>Comment written by michael at 2010-12-19 06:11:18 GMT:<br><p>For those who use xscreensaver, you can get around locking the screen and disabling gnome-power-manager by just using:</p>
+<p>xscreensaver-command -activate<br />
+sleep 0<br />
+xset dpms force off</p>
+<p>the sleep 0 is probably not even necessary.</p>
+
+<hr>Comment written by michael at 2010-12-19 06:34:22 GMT:<br><p>spoke to soon, that doesn't work either. you still have to disable gnome-power-manager</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2010-12-19 22:13:54 GMT:<br><p>Thanks for trying another workaround, Michael.  Yeah, this bug is quite nasty and there is no workaround except killing gnome-power-manager.</p>
+
+</body>
+</html>

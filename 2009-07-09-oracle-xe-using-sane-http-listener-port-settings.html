@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Oracle XE: Using sane HTTP listener port settings</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Oracle XE: Using sane HTTP listener port settings</h1>
+<p>2009-07-09 20:26:20 GMT</p>
+<p>I'm not a believer of non-free software, but some tasks I do nowadays involves using Oracle.  Unfortunately the APEX HTTP listener of Oracle sits on port 8080 by default which is utterly shameful if you intend to use Tomcat on the same host with its default 8080 port.  Moreover, APEX is only accessible from localhost so in case you want to use it from a remote host, it's a pain.  Due to not liking to Google for about an hour over and over again, I rather share the solution here:</p>
+<pre lang="text">
+begin
+dbms_xdb.sethttpport('8181');
+dbms_xdb.setListenerLocalAccess(FALSE);
+end;
+/
+</pre>
+</body>
+</html>

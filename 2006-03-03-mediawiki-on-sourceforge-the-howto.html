@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MediaWiki on SourceForge - The HOWTO</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>MediaWiki on SourceForge - The HOWTO</h1>
+<p>2006-03-03 10:13:20 GMT</p>
+<p>This is my third and last post regarding the installation of MediaWiki on SourceForge.</p>
+<p>In my <a href="http://monda.hu/~laci/blog/index.php?p=62" title="http://monda.hu/~laci/blog/index.php?p=62">first post</a>, I concluded that it's not possible to install MediaWiki on SourceForge.  In my <a href="http://monda.hu/~laci/blog/index.php?p=73" title="http://monda.hu/~laci/blog/index.php?p=73">second post</a>, I acknowledged that it's doable and in this post of mine, in my third post on the subject, I'm gonna actually describe how to do it in a way that will make you understand what are you doing and why.</p>
+<p>Just to let you know, what you're reading now is probably the most complete and clear HOWTO ever written on the subject.  It's not that there aren't any resources out there, but they're not very usable or clear in my experience.<br />
+As an additional note, it wasn't fun to compile all this information into a quality document like this, but I was so pissed off by this issue and I wasted so much time with it, that I really don't wanna anyone out there to suck days with this process like I did.  So if you're eager to install MediaWiki into your project web space on SourceForge, this guide will worth you pure gold.  I should probably charge you, but I'm such a nice person&#8230;</p>
+<p>Throughout this HOWTO, i'll mark text regions with bold formatting that are supposed to be replaced by your installation settings.</p>
+<p>Here are the steps to make the thing happen:</p>
+<ol>
+<li><em>Deploy MediaWiki source on SourceForge</em>:
+<ol>
+<li><em><a href="http://www.mediawiki.org/wiki/Download" title="http://www.mediawiki.org/wiki/Download">Download MediaWiki</a></em> to your local machine.</li>
+<li><em><code>scp</code> the tarball to your project web space</em>, since outbound connections are forbidden from the SourceForge shell:<br /> <code>$ scp mediawiki-<strong>version</strong>.tar.gz <strong>username</strong>@shell.sf.net:/home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs</code></li>
+<li><em>Extract the tarball on SourceForge</em>:<br /> <code>$ ssh <strong>username</strong>@shell.sf.net</code><br /> <code>$ cd /home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs</code><br /> <code>$ tar xzvf mediawiki-<strong>version</strong>.tar.gz</code></li>
+<li><em>Symlink the wiki directory</em>, so we'll have less burden when upgrading to a more recent version of MediaWiki:<br /> <code>$ ln -s mediawiki-<strong>version</strong> wiki</code></li>
+</ol>
+</li>
+<li><em>Set up persistent directories.</em>  Since project directories on SourceForge are not writable by Apache, we need to create writable directories for storing volatile data and modify some configuration details accordingly:
+<ol>
+<li><em>Create a persistent directory for your project</em> in <code>/tmp/persistent/<strong>tmpname</strong></code>.  <code><strong>tmpname</strong></code> should be the same as your <code><strong>projectname</strong></code>.  In case <code>/tmp/persistent/<strong>projectname</strong></code> is already created by someone else, you need to choose another name.<br /> <code>$ mkdir /tmp/persistent/<strong>tmpname</strong></code></li>
+<li><em>Create writable directories for initial configuration, session management and image data</em>:<br /> <code>$ cd /tmp/persistent/<strong>tmpname</strong></code><br /> <code>$ mkdir config sessions images</code><br /> <code>$ chmod a+w *</code></li>
+<li><em>Symlink the <code>config</code> and <code>images</code> MediaWiki directories to your persistent directory</em>:<br /> <code>$ cd /home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs/wiki</code><br /> <code>$ cp config/index.php /tmp/presistent/<strong>tmpname</strong>/config</code><br /> <code>$ rm -f config/index.php</code><br /> <code>$ rmdir config</code><br /> <code>$ ln -s /tmp/persistent/<strong>tmpname</strong>/config</code><br /><code>$ rm -f images/.cvsignore images/README</code><br /> <code>$ rmdir images</code><br /> <code>$ ln -s /tmp/persistent/<strong>tmpname</strong>/images</code></li>
+</ol>
+</li>
+<li><em>Prepare the source for installation.</em>  <code>/home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs/wiki/config/index.php</code> needs to be hacked in order to work correctly with the persistent directory setup:
+<ol>
+<li><em>Point to the correct wiki root directory</em> by replacing line 117:<br /> <code>$IP = dirname( dirname( __FILE__ ) );</code><br /> with:<br /> <code>$IP = "/home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs/wiki";</code><br />and by replacing line 1125:<br /> <code>\$IP = \"{$slconf['IP']}\"</code><br /> with:<br /> <code>\$IP = \"/home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs/wiki\"</code></li>
+<li><em>Point to the correct <code>languages</code> directory</em> by replacing line 1296:<br /> <code>global $wgLanguageNames;</code><br /> with:<br /> <code>global $wgLanguageNames, $IP;</code><br />and by replacing line 1306:<br /> <code>$d = opendir( "../languages" );</code><br /> with:<br /> <code>$d = opendir( "$IP/languages" );</code></li>
+<li><em>Point to the correct SQL database definition files</em> by replacing all the "<code>dbsource( "../</code>" strings with "<code>dbsource( "$IP/</code>" strings.  (Watch for the space after the parantheses.)</li>
+</ol>
+</li>
+<li><em>Install MediaWiki.</em>  Point your browser to <code>http://<b>projectname</b>.sf.net/wiki/config</code> and install MediaWiki through its web interface:
+<ol>
+<li><em>Select Turck MMCache for shared memory caching.</em></li>
+<li><em>Use your MySQL admin account as the DB username.</em></li>
+<li><em>On the end of the page there should be an "Installation successful!" message.  If it's not there, the installation may have interrupted due to server suckiness which happended to me several times.  If that's the case, you should rerun this script.  You may also want to drop your wiki database prior rerunning the install script if things don't work out</em>.</li>
+<li><em>Move the generated <code>LocalSettings.php</code> to the wiki root directory</em>:<br /> <code>$ mv /tmp/persistent/<strong>tmpdir</strong>/LocalSettings.php /home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs/wiki</code></li>
+<li><em>Remove old config</em>, since there's no use of it and it also imposes a security risk:<br /> <code>$ rm -f /tmp/persistent/<strong>tmpname</strong>/config/index.php</code><br /> <code>$ rmdir /tmp/persistent/<strong>tmpname</strong>/config</code><br /> <code>$ rm -f /home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs/wiki/config</code></li>
+<li><em>Correct the default session save path</em> by including into <code>/home/groups/<strong>p</strong>/<strong>pr</strong>/<strong>projectname</strong>/htdocs/wiki/LocalSettings.php</code> at the end of the PHP section:<br /> <code>session_save_path("/tmp/persistent/<strong>tmpdir</strong>");</code></li>
+</ol>
+</li>
+<li><em>Fine-tune MediaWiki for the environment.</em>  You have a workable MediaWiki installation at this point, but there are still several steps to be made in the current environment:
+<ol>
+<li><em>Restrict editing permissions</em> by including into <code>LocalSettings.php</code>:<br /> <code>$wgGroupPermissions['*']['edit'] = false;</code><br /> <code>$wgGroupPermissions['user']['edit'] = false;</code></li>
+<li><em>Display SourceForge logo.</em>  SourceForge requires every projects to display their logo on every project web page for statistical and PR purposes.  There are plenty of docs on this topic.</li>
+</ol>
+</li>
+</ol>
+<p><strong>Thanks</strong></p>
+<p>I'd like to thank Diego Torres Milano, developer of the <a href="http://jglade.sourceforge.net" title="http://jglade.sourceforge.net">JGlade</a> project for writing the <a href="http://jglade.sourceforge.net/wiki/index.php/Mediawiki_installation_on_SourceForge" title="http://jglade.sourceforge.net/wiki/index.php/Mediawiki_installation_on_SourceForge">mediawiki-sf</a> installation script which I learned a lot from.</p>
+<hr>Comment written by zzorn at 2007-06-14 08:12:50 GMT:<br><p>Thanks for the instructions!</p>
+<p>I noted that Noel had some <a href="http://baoilleach.blogspot.com/2007/06/installing-mediawiki-on-sourceforge.html" rel="nofollow">corrections to the guidelines</a> on his blog, posting the link here for the benefit of others.</p>
+
+<hr>Comment written by claudius at 2007-10-13 16:48:04 GMT:<br><p>Thanks all of you for publishing all these. It would have been such a burden without you guys.</p>
+
+<hr>Comment written by Jeremy Harmon at 2007-11-08 04:40:25 GMT:<br><p>For some reason the creation of tables failed when installing it using 1.6.10. I manually added the tables.sql schema (in the maintenance folder), and re-ran the install, works fine now.</p>
+
+</body>
+</html>

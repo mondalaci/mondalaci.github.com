@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Coder Keymaps closed</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Coder Keymaps closed</h1>
+<p>2009-11-09 13:02:18 GMT</p>
+<p>I've started <a href="https://github.com/mondalaci/coder-keymaps">Coder Keymaps</a> a long time ago to create a special keyboard mapping that's the best for me.  That idea is to map Hungarian characters in a special way using the Windows key.  Take the standard US layout, keep a Windows key pressed and press an alphanumeric key which produces an accented character on Hungarian keyboards and voila: the key will produce the relevant Hungarian character.</p>
+<p>That was the basic idea but I went further about two years ago when I realized that hand travel distance is much longer than it's supposed to be in many cases.  When writing code one's right hand must move often between the alphanumeric keypad and the navigational keypad.  To alleviate this problem I decided to map the whole navigational block to the alphanumeric block through the Windows key.</p>
+<p>I've used the above configuration with great pleasure and it improved my efficiency for almost two years.  Unfortunately the X keyboard drivers must have been changed in the last two Ubuntu releases because my xmodmap keymaps stopped working.  I knew it in the beginning that xmodmap is outdated and XKB is the future but it wasn't really urgent to port Coder Keymaps to XKB so I didn't do that.</p>
+<p>Due to the pressing need to use my beloved mapping I've made some efforts and had some online chat with <a href="http://blogs.gnome.org/sudaltsov/">Sergey Udaltsov</a> who is very knowledgable about XKB.</p>
+<p>Long story short, it seems that it's impossible to create such an exotic keymap on Linux.  Not that it's not possible to create it with XKB, but various GUI toolkits, such as GTK+ interpret the mappings in strange ways and the mapping wouldn't be consistent accross toolkits.  I'm sure that this can be solved by modifying the X keyboard driver or the toolkits but as you may suppose it's a heroic work.  Not only that, but this is an OS-specific problem and there are no standard solutions that truly work.</p>
+<p>I finally decided to attack the problem differently by creating a keyboard hardware that has limitless power regarding remapping.  It's actually not a new idea of mine, it's about two years old.  The prototype is in development and it's very innovative in many ways.  I've gathered a small, but knowledgable team and we're progressing rapidly.  I wanted to have a working prototype by the end of this year but I'm not sure we get there in time because rapid prototyping is expensive and the delivery of rare electronic components take time to arrive to Hungary.  But no matter how long it will take, we'll never give up.</p>
+<p>As a result of the above I don't wanna devote any more time to Coder Keymaps.  The project has been closed.</p>
+</body>
+</html>

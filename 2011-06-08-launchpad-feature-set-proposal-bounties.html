@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Launchpad feature set proposal: Bounties</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Launchpad feature set proposal: Bounties</h1>
+<p>2011-06-08 18:06:12 GMT</p>
+<h2>Abstract</h2>
+<p>The objective of this post is to propose a new feature set for <a href="https://launchpad.net/">Launchpad</a> to provide a way for users to create monetary incentives for developers to fix specific bugs or to implement new features.</p>
+<h2>The problem</h2>
+<p>The latest and greatest release of Ubuntu, Natty contains more than ten thousand packages.  The sheer number of packages inevitably contain an even larger number of bugs.  At the time of writing there are 90198 <a href="https://bugs.launchpad.net/ubuntu/+bugs">open bugs in Launchpad</a>.</p>
+<p>Many times Free Software developers work on a project for the reputation of their peers and for the challenge involved but often they cannot devote enough time to their project because they have to make a living.  As a result their project suffers which manifests itself in a large number of bugs and / or missing features.</p>
+<p>Millions of users of Ubuntu have to deal with these bugs on a daily basis, usually by working them around or tolerating them.  Sometimes bugs get fixed quickly but many times they don't get fixed for a long time.  In the latter case users cannot do anything to make a bug fixed apart from reporting the bug or fixing it by themselves, the latter being very time consuming and requires lots of expertise.</p>
+<p>If users could create monetary incentives for developers to fix specific bugs or to implement specific features then it would be more likely for those bugs to get fixed or those features to get implemented.</p>
+<h2>Proposed solution</h2>
+<p>The model to be proposed works like the online marketplaces designed for freelancers to be employed.  In particular, I'd like to highlight <a href="http://www.guru.com/">Guru.com</a> because they're on the top of their game and they've implemented various practices that make sure that the job actually gets done and all parties are satisfied.</p>
+<p>The actors involved are:</p>
+<ul>
+<li>Donor: A user is a donor from the point on he/she deposited a bounty for a bug.</li>
+<li>Developer: Can be an upstream or third-party developer who's about to fix a bug for a given bounty.</li>
+<li>Judge: An independent and competent third-party who has to make justice if donors have any objections about the completeness or quality of the fix after the developer has claimed the bounty.</li>
+</ul>
+<p>The process could work like this:</p>
+<ol>
+<li>If a user chooses to provide a bounty for a bug, a deposit gets created for the specific bug and the desired amount gets added to it using PayPal or credit card transfer.</li>
+<li>Other users can also add funds to this deposit.</li>
+<li>At this point any donor can withdraw his/her bounty at any time.</li>
+<li>As soon as the bug gets assigned to a developer the deposit gets frozen and donors won't be able to add or remove funds to it.</li>
+<li>The developer should deliver the fix within an approved timeframe and claim the deposited bounty.</li>
+<li>The bounty gets transferred to the account of the developer if none of the donors have any objections within a week or so.</li>
+<li>If any objection occurs then related parties can discuss it or eventually they can raise the issue to the arbitration phase where a judge is involved.</li>
+</ol>
+<p>Some further thoughts:</p>
+<p>Because of their dedication, familiarity with the given codebase and proven track record, upstream developers could be given the privilege of being able to exclusively work for a bounty for a specific amount of time.  This exclusivity period could last about one week from the creation of the deposit, for example.</p>
+<p>It should be made sure that no developer is able to block the resolution of a given bug.  This could be either done by defining close deadlines or by allowing for any bug to be assigned to multiple developers.  In the latter case whoever resolved the bug first could claim the bounty.</p>
+<p>It may make sense for such a system to automatically notify upstream in advance and ask them to agree to merge the upcoming fix and also request the developer to provide a fix in a format requested by upstream.</p>
+<p>Canonical should get some portion of the bounty for developing and operating Launchpad and they could also provide judges.</p>
+<h2>Why Launchpad?</h2>
+<p>Launchpad is the ultimate umbrella project of the Free Software Universe.  As such, it relates and highlights every upstream project in a consistent manner.  <a href="http://www.youtube.com/watch?v=rjyNTCHVyxs&amp;t=4m42s">Mark Shuttleworth said at UDS-O</a> that "For most Free Software projects I wouldn't be surprised to find if there are more bugs filed against that piece of Free Software in Ubuntu than upstream."</p>
+<p>According to the above it makes sense to implement this feature set on top of the existing, state-of-the-art and proven infrastructure instead of creating a whole new site for it.</p>
+<h2>Conclusion</h2>
+<p>There are many details left to be answered and nothing is written in stone, but I hope that this post is thought-provoking enough to start further discussions about the viability and towards the implementation of this idea.</p>
+<p>I have witnessed online marketplaces working both as a freelancer and as an employer, but this idea could be so much cooler in regards of Free Software where everyone benefits from the work of developers and everything happens openly.</p>
+<p>I'm looking forward to talk more about this issue, so if you have anything to say, please don't hesitate to let me know in the comments.</p>
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2011-06-08 18:56:32 GMT:<br><p>I've created a <a href="https://blueprints.launchpad.net/launchpad/+spec/launchpad-bounties" rel="nofollow">blueprint</a> and a <a href="http://brainstorm.ubuntu.com/idea/28075/" rel="nofollow">brainstorm</a> page for this idea in the meantime.</p>
+<p><a href="http://brainstorm.ubuntu.com/item/2801/" rel="nofollow">Idea #2801: Make it easier/possible to donate money to Ubuntu</a> is certainly related.</p>
+<p>Mark Shuttleworth has just written a new blog post titled <a href="http://www.markshuttleworth.com/archives/680" rel="nofollow">On balancing economic power in the FLOSS ecosystem</a> which is also related as the central theme is empowering upstreams.</p>
+
+</body>
+</html>

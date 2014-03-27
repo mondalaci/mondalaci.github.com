@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TP-LINK TL-WPS510U review</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>TP-LINK TL-WPS510U review</h1>
+<p>2009-09-30 22:45:05 GMT</p>
+<p>Update (2009-12-29): I told the store that the unit I got is broken and they sent me a new one.  After testing the new print server with 2 of my routers I must say that it has the same connectivity issues as the first unit.  Nobody should consider to buy a TP-LINK TL-WPS510U because it is a broken piece of shit.  I'll try a different model from another manufacturer and will report about my experiences.</p>
+<p>This post is more of a warning than a review.  I wrote "review" so Google can index this post as a "review" and people will be able to find it by searching for a review on this product.</p>
+<p>I'll keep this post updated but I don't advise anyone to buy this print server until this issue have been resolved.</p>
+<blockquote><p>At: Wed, Sep 30, 2009 at 9:44 AM<br />
+From: me<br />
+To: support@tp-link.com<br />
+Subject: TL-WPS510U: Serious connectivity issue</p>
+<p>Dear Sir / Madam,</p>
+<p>I use my TL-WPS510U in infrastructure mode with WPA2 and it has major<br />
+connectivity issues.</p>
+<p>After about 2-3 hours of operation the print server disconnects from<br />
+the router and the only way to make it connect again is to unpower and<br />
+power it. Â I've roughly measured the time that it takes for the print<br />
+server to disconnect as you can see below:</p>
+<p>root@bloomy:~# while true; do date; wget -O /dev/null <a href="http://printy/" target="_blank">http://<span>printy</span></a>; sleep 2h; done<br />
+Sun Sep 27 17:39:00 CEST 2009<br />
+Connecting to <span>printy</span> (<a href="http://10.66.66.50/" target="_blank">10.66.66.50:80</a>)<br />
+wget: server returned error: HTTP/1.0 401 Unauthorized<br />
+Sun Sep 27 19:39:00 CEST 2009<br />
+Connecting to <span>printy</span> (<a href="http://10.66.66.50/" target="_blank">10.66.66.50:80</a>)<br />
+wget: server returned error: HTTP/1.0 401 Unauthorized<br />
+Sun Sep 27 21:39:00 CEST 2009<br />
+Connecting to <span>printy</span> (<a href="http://10.66.66.50/" target="_blank">10.66.66.50:80</a>)<br />
+wget: server returned error: HTTP/1.0 401 Unauthorized</p>
+<p>root@bloomy:~# while true; do date; wget -O /dev/null <a href="http://printy/" target="_blank">http://<span>printy</span></a>; sleep 3h; done<br />
+Sun Sep 27 23:32:25 CEST 2009<br />
+Connecting to <span>printy</span> (<a href="http://10.66.66.50/" target="_blank">10.66.66.50:80</a>)<br />
+wget: server returned error: HTTP/1.0 401 Unauthorized<br />
+Mon Sep 28 02:32:25 CEST 2009<br />
+Connecting to <span>printy</span> (<a href="http://10.66.66.50/" target="_blank">10.66.66.50:80</a>)<br />
+wget: cannot connect to remote host (10.66.66.50): No route to host<br />
+Mon Sep 28 05:32:28 CEST 2009<br />
+Connecting to <span>printy</span> (<a href="http://10.66.66.50/" target="_blank">10.66.66.50:80</a>)<br />
+wget: cannot connect to remote host (10.66.66.50): No route to host</p>
+<p>I've tried to sustain the connection by various methods.</p>
+<p>First, I tried to ping the print server for a sustained period of time<br />
+but it didn't help.</p>
+<p>Then I tried to fetch its web interface periodically hoping that it'd<br />
+help.  I've had some moderate success with this method as you can see<br />
+above, but it doesn't help in the long run because the print server<br />
+disconnects after some hours anyways.</p>
+<p>As I cannot see any firmware upgrades on your site I urge you to fix<br />
+this problem.  I'd like to stick with your print server if I can<br />
+upgrade to the fixed firmware rather than buying a wireless print<br />
+server from another manufacturer.</p>
+<p>Thanks in advance for your reply.</p></blockquote>
+<hr />
+<blockquote><p>At: Fri, Oct 2, 2009 at 8:39 AM<br />
+From: Ceclia Li @ TP-Link<br />
+To: me</p>
+<p>Dear László Monda</p>
+<p>Thank you very much for your email requesting information about our product.</p>
+<p>Sorry for the late reply! Now I send the firmware of 510u to you. Please try to install it. Please pay attention to your hardware version of your printer server.</p>
+<p>Thanks for your support of our TP-LINK.</p>
+<p>Sorry for the inconvenience caused and hope for your understanding</p>
+<p>Any further help please feel free to let me know.</p>
+<p>To get technical support more quickly, please go to http://www.tp-link.com/support/faq.asp</p>
+<p>Best Regards,<br />
+Cecilia Li</p>
+<p><strong>Attached file: <a href="http://monda.hu/blog/wp-content/uploads/tl-wps510u.rar">TL-WPS510U.rar</a></strong></p></blockquote>
+<hr />
+<blockquote><p>At: Fri, Oct 2, 2009 at 9:44 PM<br />
+From: me<br />
+To: Cecilia Li @ TP-Link</p>
+<p>Dear Cecilia,</p>
+<p>I'm having a hard time upgrading the firmware.</p>
+<p>There are two files within the rar file you sent me:<br />
+* V1/DWP1000T_1_54.bin<br />
+* V2 (WPS)/MPS48-TP-Link-6.04.48T-0015-124.bin</p>
+<p>There is absolutely no information regarding which file should I use<br />
+but I assume that the latter is appropriate in my case because WPS<br />
+stands for Wireless Print Server and the version number resembles the<br />
+version number of the current firmware which is "6.01.43T 0054 LOADER<br />
+3.5 WEB 54.0001".</p>
+<p>First, I've tried to upgrade the firmware through the web interface.<br />
+After specifying the filename and clicking on the Firmware Upgrade<br />
+button, the Status &gt; System page has been loaded.  Unfortunately, the<br />
+firmware version was the same as before and the print server hasn't<br />
+been rebooted because the uptime hasn't been reset.</p>
+<p>After that, I tried to upgrade the firmware through TFTP using the<br />
+following command in the Linux console:</p>
+<p>laci@noisy:~/download/TL-WPS510U/V2 (WPS)$ atftp --trace --option<br />
+"mode octet" --put --local-file MPS48-TP-Link-6.04.48T-0015-124.bin<br />
+printy<br />
+Trace mode on.<br />
+Option mode = octet<br />
+sent WRQ &lt;&gt;&gt;<br />
+received ACK<br />
+sent DATA<br />
+tftp: error received from server<br />
+tftp: aborting</p>
+<p>Please let me know how can I upgrade the firmware.</p>
+<p>Thanks in advance!</p></blockquote>
+<hr />
+<blockquote><p>At: Sat, Oct 3, 2009 at 10:01 AM<br />
+From: Cecilia Li @ TP-Link<br />
+To: me</p>
+<p>Dear László Monda</p>
+<p>Thank you very much for your email requesting information about our product.</p>
+<p>First, access the setup page of 510U, then click <strong>mis</strong>-&gt;<strong>firmware</strong> upgrade, then you can see this page:</p>
+<p><em>Obvious screenshot included</em></p>
+<p>Click <strong>browse</strong>, then select the firmware, then click <strong>Firmware Upgrade</strong>.</p>
+<p>Any further help please feel free to let me know.</p>
+<p>To get technical support more quickly, please go to http://www.tp-link.com/support/faq.asp</p>
+<p>Best Regards,<br />
+Cecilia Li</p></blockquote>
+<hr />
+<blockquote><p>At: Sat, Oct 3, 2009 at 11:00 AM<br />
+From: me<br />
+To: Cecilia Li @ TP-Link</p>
+<p>Dear Cecilia,</p>
+<p>I've done exactly what you wrote, even before you wrote it.  Let me quote from my previous email:</p>
+<p>"First, I've tried to upgrade the firmware through the web interface.<br />
+After specifying the filename and clicking on the Firmware Upgrade<br />
+button, the Status &gt; System page has been loaded.  Unfortunately, the<br />
+firmware version was the same as before and the print server hasn't<br />
+been rebooted because the uptime hasn't been reset."</p>
+<p>Upgrading through TFTP didn't work either as I mentioned in my previous email.</p>
+<p>Now what should I do?</p>
+<p>Thanks in advance!</p></blockquote>
+<hr />
+<blockquote><p>At: <span>Tue, Oct 13, 2009 at 10:03 PM</span><br />
+From: me<br />
+To: Cecilia Li @ TP-Link</p>
+<p>Dear Cecilia,</p>
+<p>10 days gone by since my last email.  Can anyone of you help me regarding this issue?</p>
+<p>Thanks!</p></blockquote>
+<hr />
+<blockquote><p>At: Tue, Oct 13, 2009 at 11:11 PM<br />
+From: Cecilia Li @ TP-Link<br />
+To: me</p>
+<p>Dear László Monda</p>
+<p>Thank you very much for your email requesting information about our product.</p>
+<p>Sorry for my late reply!! If the firmware I sent to you is same to the old one, please do not upgrate it.</p>
+<p>Please prefer to the attachment to check whether you have set TL-WPS510U to work in Infrastructure mode to connect to your existing wireless network correctly.</p>
+<p>Then you'd better place the print server near your router(or computer) as closer as possible and make sure the wireless signal is stable, If the distance between the printer sever and your router(or computer), the printing may be stoped sometimes.</p>
+<p>If the problem still exist, you should try to contact your reseller to test the product.</p>
+<p>Sorry for the inconvenience casued and hope for your understanding</p>
+<p>Any further help please feel free to let me know.<br />
+To get technical support more quickly, please go to <a href="http://www.tp-link.com/support/faq.asp" target="_blank">http://www.tp-link.com/support/faq.asp</a></p>
+<p>Best Regards,<br />
+Cecilia Li</p></blockquote>
+<hr />
+<blockquote><p>At: Wed, Oct 14, 2009 at 12:03 AM<br />
+From: me<br />
+To: Cecilia Li @ TP-Link</p>
+<p>Dear Cecilia,</p>
+<p>There are some points that I'd like to highlight:</p>
+<p>* The firmware you sent me is not the same one as the one that is installed on the print server by default.<br />
+* The firmware cannot be updated through the web interface nor through TFTP.<br />
+* The print server is not far away from the router so the connection should be stable.<br />
+* Even if the connection drops, the print server should reconnect immediately as it happens on reboot.</p>
+<p>I find it highly unlikely that this problem is specific to my print server.  I think that it's a widespread problem but most people probably not use the server with WPA2 in infrastructure mode or as soon as they realize that it's broken they use it in ad-hoc mode.</p>
+<p>In case you would like to send me novice user guides as earlier, please don't because I'm a computing professional and the instructions in such guides are evident to me.</p>
+<p>I appreciate your help but based on my experiences with your print server I'd rather replace it with a Linksys WPSM54G.</p>
+<p>I wish you all the best.</p></blockquote>
+<hr>Comment written by Balázs Nemes at 2009-10-20 22:46:47 GMT:<br><p>Hi Lazlo,</p>
+<p>This evening I spent 2 hours trying to setup a print server using TL-WPS510U. I was not able to reach it through my Linksys router (dd-wrt). The default gateway on the TP-link device was 192.168.0.1, my router has 192.168.1.1. Whenever I tried to change the ip settings of the print server they were not able to find each other again.<br />
+Your input would be appreciated, I am about to return this damned thing.</p>
+
+<hr>Comment written by <a href="http://laci.monda.hu">Laci</a> at 2009-10-20 23:10:43 GMT:<br><p>Hey Balázs,</p>
+<p>Thanks for letting me know your situation.</p>
+<p>I could set up the print server in infrastructure mode, but the connection was unstable after that.  Your situation sounds even worse than mine.</p>
+<p>Anyways, I'll ask for a replacement server just to make sure that this model is broken and not just my individual device.</p>
+
+<hr>Comment written by Gabriel Reindl at 2010-08-11 01:16:55 GMT:<br><p>Hi Balasz,<br />
+I have a similar problem and currently am battling the incompetent technical support of TP-Link. My problem is that when encryption is activated (WPA or WPA2) I can't get a connection to the wireless printer.<br />
+You have at least received the newer firmware from tech sup. I am battling the to provide it to me and they don't want to - I am unable to comprehend why - they have a built in feature to upgrade the FW.<br />
+If you happen to have the old FW file (in your case the  TL-WPS510U.rar) please send it to me via e-mail. I want to fry this puppy before I throw it away...<br />
+I will go to all review page of amazon/newegg and other internet resellers and will write negative feedbacks about this crap of company &amp; their products..<br />
+Thanks &amp; Bye..<br />
+Gabriel</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2010-08-11 02:06:21 GMT:<br><p>Gabriel: In the meantime I replaced the TP-LINK TL-WPS510U with an Edimax PS1206UWG which I'm happy with it and I suggest you to do the same.  I use it with wired ethernet because it wasn't perfect with wireless as far as I can remember but print servers suck so hardcore that I'm happy that it even works.</p>
+
+<hr>Comment written by Gabriel at 2010-08-11 14:32:40 GMT:<br><p>Thanks Laci!<br />
+I have a similar experience with print servers. Unfortunately I have invested in a continuous ink system into a Canon printer that is USB only and need to use it over network, preferably wireless as I hate laying cables around in house...<br />
+I had this one working but since I upgraded my WiFi router (ASUS RT-16N) and with that tried to use WAP2 the WPS just balked on me.<br />
+Now when I even reset the router and go back to original configuration it won't work anymore. Hence I suspect I need at least a FW refresh, but I'm unable to get it from the TP-Link...they are hiding something apparently. I know it's a stretch, but if you happen to have that file it could probably give me a fighting chance to get this mess fixed...Thanks! -g.</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2010-08-11 14:48:06 GMT:<br><p>Gabriel: I've just uploaded the firmware that they gave me, see the link in my post.  You're free to experiment with it but alternatively you can do yourself a favor and plug the ethernet cable.  ;)</p>
+
+<hr>Comment written by sugionodjojo at 2010-11-23 21:39:24 GMT:<br><p>I have just bought the piece, and now hving hard time to put it on infrastructure mode and get it along with my router. I finish the step of changing the ridiculous ip address 192.168.0.1 become same as my subnet. problem arise when change the wifi setting to infrastructure mode....if some one from tp link read this , can you please help? thanks</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2010-11-24 19:11:42 GMT:<br><p>sugionodjojo: You can bet that this won't be read by anyone from TP-Link.  Unfortunately I forgot pretty much everything regarding the configuration of this device and I advise against buying any print servers as they're far from being well-tested and are generally a piece of shit.  If someone really needs a print server it's better to use it through wired Ethernet instead of wi-fi.</p>
+
+<hr>Comment written by Anonymous at 2011-02-04 23:17:22 GMT:<br><p>same issue here</p>
+
+<hr>Comment written by Alfio at 2011-03-21 07:36:31 GMT:<br><p>There is the last firmware for this machine: http://www.tplink-forum.it/showthread.php?tid=46</p>
+
+<hr>Comment written by Darrell at 2011-04-15 21:40:07 GMT:<br><p>Just wasted a whole day trying to get a TP-Link WPS510U wireless print server to work with SCO Unix 5.0.7.  I got it to print right a away, but can't get rid of the footer text at the end of every print job listing the host node name, and user name etc.  It does not print this when printing from a windows host, nor does it print when forwarded to the printer from Unix through a windows lpd que.<br />
+Can't get hold of TP-Link support, so will have to scrap it in favor of another device.</p>
+<p>frustrated,<br />
+d</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2011-04-15 22:10:11 GMT:<br><p>Darrell: Sorry to hear that.  I wish there was a FOSS (both regarding software and hardware) print server on the market.  I'm not quite satisfied with any of them so far.</p>
+
+<hr>Comment written by  at 2011-10-09 06:28:55 GMT:<br><p>I have the 510U and it WILL NOT speak WPA or WPA2 to my netgear wndr3400.  Thanks for your review.  I'm sending it back.</p>
+
+<hr>Comment written by Ray at 2012-02-15 08:17:02 GMT:<br><p>Whoever reads this do not buy it as it does not work. I can not put it in infrastructure mode the thing stops transmitting this is the second one I have tried the first one I could get into infrastructure if I selected G only.  I was able to get into the thing through the web server they ask for a name and password I did not see it in the documentation it is name: admin and password: 4 zeros. I have updated the firmware nothing changes. A total piece of shit. I have tried every conceivable setting maybe I will dress it up with a rubber skirt and use it as a fishing lure ef'ing retarded Chinese crap.</p>
+<p>regards<br />
+Ray</p>
+
+<hr>Comment written by Pete at 2012-03-17 04:54:20 GMT:<br><p>DO NOT BUY THIS PRODUCT! </p>
+<p>I have spent the whole night trying to get this to work on my Mac OS X Lion, it will not work in WPA or WPA2 or WEP or without security for that matter! </p>
+<p>I get to the wireless part and set my settings then presto it hangs and never comes back, have to reset it and start all over again only to find that it does the same thing with different settings, been on the phone support all night with people who do not know a god darn thing but frustrate you by asking you to keep trying what you already did....!!!!</p>
+<p>Finally they sent my info to someone in the tech department and said they would contact me in 10 day ..... 10DAYS!!!!!! WTF!!!!</p>
+<p>Returning this to the store tomorrow and if they don't take it back i'll be office spacing it in the middle of the store with my foot!</p>
+
+<hr>Comment written by Stoyan Deckoff at 2013-08-05 05:49:14 GMT:<br><p>V4 of the firmware work, but is still very unstable, bugs my wifi router,  and configuration is pain in the ass, one wrong step and you have to restart configuring it. Not very happy with the product<br />
+It seems Raspberry Pi can be used as a wireless print server, and I will try it out as one</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2013-08-05 08:50:52 GMT:<br><p>@Stoyan: Yeah, I'd definitely use a Pi these days, too.</p>
+
+</body>
+</html>

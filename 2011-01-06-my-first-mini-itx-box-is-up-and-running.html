@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My first Mini-ITX box is up and running</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>My first Mini-ITX box is up and running</h1>
+<p>2011-01-05 23:50:38 GMT</p>
+<p>I've just set up sundevil, my first Mini-ITX box which serves as my home server. OpenWrt wasn't enough for my needs anymore because I want to heavily encrypt all my data and I don't wanna make so much compromises.  I plan to use this server as a NAS and file sharing box and I'd like to have another one soon for a different location where I frequently stay.</p>
+<p>This box is a rare combination of power efficiency and lots of horsepower featuring:</p>
+<ul>
+<li>D510MO Mini-ITX mainboard with integrated dual core Intel Atom processor</li>
+<li>2GB DDR2 RAM</li>
+<li>WD20EARS - 2TB big ass HDD</li>
+<li>12V 80W power supply</li>
+<li>﻿PicoPSU-80 - 12V super-tiny, super-efficient DC-DC ATX power supply</li>
+</ul>
+<p>That's all.  It's not worth buying a Mini-ITX enclosure because they're tiny and relatively expensive.  Most of them cannot even house a 3.5'' HDD.  It's better to grab a used ATX box.</p>
+<p>I'm very satisfied with this server so far but I was having much headache when setting it up.  Booting from USB wasn't possible because of some BIOS bug.  I considered netboot install but it's a pain to set it up so I finally bought a DVD writer for this purpose (it almost costs the same as a reader).  Another caveat that is worth mentioning that I couldn't boot Ubuntu after installation.  Turns out that the GUID partition table that was the default option of the alternate Maverick boot CD probably wasn't supported by the BIOS so I had to chose the traditional MSDOS partition table.</p>
+<p>A picture is worth a thousand words people say, let alone a dozen of them.</p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/mini-itx-sundevil.jpg" alt="mini-itx-sundevil" width="640" height="480"/></p>
+<p>The CPU has more than enough juice (2 threads per 2 cores).  Thankfully, I won't have to upgrade it for a while.</p>
+<pre lang="text">
+# cat /proc/cpuinfo
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 28
+model name	: Intel(R) Atom(TM) CPU D510   @ 1.66GHz
+stepping	: 10
+cpu MHz		: 1666.654
+cache size	: 512 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx lm constant_tsc arch_perfmon pebs bts rep_good aperfmperf pni dtes64 monitor ds_cpl tm2 ssse3 cx16 xtpr pdcm movbe lahf_lm
+bogomips	: 3333.30
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 28
+model name	: Intel(R) Atom(TM) CPU D510   @ 1.66GHz
+stepping	: 10
+cpu MHz		: 1666.654
+cache size	: 512 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx lm constant_tsc arch_perfmon pebs bts rep_good aperfmperf pni dtes64 monitor ds_cpl tm2 ssse3 cx16 xtpr pdcm movbe lahf_lm
+bogomips	: 3333.38
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 28
+model name	: Intel(R) Atom(TM) CPU D510   @ 1.66GHz
+stepping	: 10
+cpu MHz		: 1666.654
+cache size	: 512 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx lm constant_tsc arch_perfmon pebs bts rep_good aperfmperf pni dtes64 monitor ds_cpl tm2 ssse3 cx16 xtpr pdcm movbe lahf_lm
+bogomips	: 3333.40
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 28
+model name	: Intel(R) Atom(TM) CPU D510   @ 1.66GHz
+stepping	: 10
+cpu MHz		: 1666.654
+cache size	: 512 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 10
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx lm constant_tsc arch_perfmon pebs bts rep_good aperfmperf pni dtes64 monitor ds_cpl tm2 ssse3 cx16 xtpr pdcm movbe lahf_lm
+bogomips	: 3333.37
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+</pre>
+</body>
+</html>

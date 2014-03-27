@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to rule remote shell sessions with tmux and mosh</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to rule remote shell sessions with tmux and mosh</h1>
+<p>2013-01-26 16:25:22 GMT</p>
+<p>If you're like most ssh users when your connection breaks it's bad news for you.  Not only you have to reconnect but your session gets destroyed and you have to make all the moves to restore the previous state.  This doesn't have to be that way.  I'd like to say some words about two tools that solve these problems in the most elegant way possible.</p>
+<h2>tmux</h2>
+<blockquote><p>
+tmux is a terminal multiplexer: it enables a number of terminals to be created, accessed, and controlled from a single screen.  tmux may be detached from a screen and continue running in the background, then later reattached.
+</p></blockquote>
+<p>In the world of <a href="http://linux.die.net/man/1/tmux">tmux</a> there are windows and panes within windows.  You can think of tmux windows as workspaces on the desktop that are aligned in a horizontal manner.  It's like having a number of virtual monitors next to each other each running different shell sessions.  You can move across these windows as desired.  With the use of panes you can split individual windows horizontally and/or vertically as desired, each pane housing a different session.  This is pretty useful for tailing various log files in different panes and monitoring them at once.</p>
+<p>You simply have to run the <code>tmux</code> command to create a new tmux session.  Once a session exists upon reconnecting over ssh you have to invoke <code>tmux attach</code> to reconnect to your already existing session.</p>
+<p>If you're like me you may want to use tmux by default upon ssh'ing to servers.  To make this happen you have to include <code>export LC_TMUX_SESSION_NAME=yourusername</code> into your <code>~/.bashrc</code> and <a href="https://github.com/mondalaci/dotfiles/blob/master/bin/scp">wrap scp</a> on the client side and <a href="https://github.com/mondalaci/dotfiles/blob/master/.bashrc">invoke tmux automatically on the server side</a>. On a related note you can also take a look at <a href="https://github.com/mondalaci/dotfiles/blob/master/.tmux.conf">my tmux.conf</a> which I believe defines more intuitive shortcuts than the default configuration.</p>
+<p>There are a number of alternatives to tmux that I'd like to list starting with the most powerful towards the least powerful.  <a href="http://linux.die.net/man/1/screen">GNU Screen</a> is yet another terminal multiplexer but its feature set, usability and configurability is rather limited compared to tmux.  <a href="http://linux.die.net/man/1/dtach">dtach</a> is like a minimalistic tmux featuring one pane inside one window and it only provides a minimal set of options.  Finally, with the use of the <a href="http://linux.die.net/man/1/nohup">nohup</a> command you can make your (typically long-running) script immune to hangups and hence it can survive ssh disconnects.</p>
+<h2>mosh</h2>
+<blockquote><p>
+Remote terminal application that allows <b>roaming</b>, supports <b>intermittent connectivity</b>, and provides intelligent <b>local echo</b> and line editing of user keystrokes.
+</p></blockquote>
+<p><a href="http://mosh.mit.edu/">mosh</a> is the other piece of the puzzle leading to the remote shell nirvana.  After <code>apt-get</code>ting <code>mosh</code> on the client and <code>mosh-server</code> on the server instead of invoking <code>ssh yourserver.com</code> invoke <code>mosh yourserver.com</code>.  From this point on you don't have to worry about reconnecting to ssh or having to wait for the server to echo back your characters anymore.</p>
+<hr>Comment written by leucos at 2013-06-07 07:53:59 GMT:<br><p>Interesting, thanks ! As a side note, one has to ensure that LC_TMUX_SESSION_NAME is accepted on the server side, and sent from the client side :</p>
+<p>Server side : (typically /etc/ssh/sshd_config) :<br />
+AcceptEnv LC_TMUX_SESSION_NAME</p>
+<p>Client side (typically ~/ssh/config) :<br />
+Host *<br />
+  SendEnv LC_TMUX_SESSION_NAME</p>
+<p>Thanks!</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2013-06-07 08:50:40 GMT:<br><p>@Ieucos: Sure, thanks for your suggestion!  The reason I didn't include this because my <code>/etc/ssh/ssh_config</code> contained <code>SendEnv LANG LC_*</code> and <code>/etc/ssh/sshd_config</code> contained <code>AcceptEnv LANG LC_*</code> by default:</p>
+<p>Maybe it's just a Ubuntu / Linux Mint default though.</p>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ultimate Commander: Status Report</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Ultimate Commander: Status Report</h1>
+<p>2006-08-22 21:40:02 GMT</p>
+<p>I haven't said anything on the UC front in the near past, so it's time to tell some words about it.</p>
+<p>First of all, I have a job for some weeks which keeps me busy.  That doesn't mean that I won't spend any time on UC in the future, but I won't have so much time for sure.  I try to manage my time as efficiently as I can, though.  So let's see what has happened in the past few weeks regarding UC.</p>
+<p><strong>Documentation Improved</strong></p>
+<p>I've finally managed to write the <a href="http://ultimatecommander.org/Project_Values" title="http://ultimatecommander.org/Project_Values">Project Values</a> and <a href="http://ultimatecommander.org/Usability_Guidelines" title="http://ultimatecommander.org/Usability_Guidelines">Usability Guidelines</a> documents, something I wanted for a long time.  I wanted to clearly communicate some things that I think are important about the project and I think I succeeded with these two documents in doing so.  I plan to write additional design documentation as I'll implement the related functionality in the meantime.</p>
+<p><strong>Complete Administrative Setup Achieved</strong></p>
+<p>The setup of the free services used by the project are pretty damn advanced compared to its state and maturity but there were some pieces that were missing and I was bothered by them.  In short, I've managed to register the #uc channel on freenode using the <a href="http://en.wikipedia.org/wiki/IRC_services" title="http://en.wikipedia.org/wiki/IRC_services">IRC services</a> (which I'm new to and really love).  I now have administrative privileges over the channel and I invited the ChanServ bot over so the topic hopefully won't appear anymore.  I've also requested an IRC cloak (which masks one's hostname so others won't be able to directly attack him/her).  I couldn't register previously because the CIA bot had the operator status on the channel.  I needed to ask Micah Dowty to remove it temporarily.  In case you want to talk to him, he seems to be only accessible via IRC on #cia at freenode, under the nickname scanlime.</p>
+<p><strong>Near Plans</strong></p>
+<p>The most important goal is to make UC alpha.  This implies implementing some critical features, most notably copy, move and delete.  This will involve creating some underlying primitives like dialog widgets embedded to the main window and most importantly implementing the job model, a framework that will smoothly manage parallel, long-running operations in an easily managable and intuitive manner, both in terms of functionality and user interface.</p>
+<p><strong>Future Plans</strong></p>
+<p>Developing the GUI is quite cumbersome with Glade.  It's usable, but Stetic binds compile time, generates signal handler skeleton methods and integrates nicely with MonoDevelop.  Unfortunately, the latest MonoDevelop that is released  has an old Stetic that hasn't got some critical functionality (such as menu bar editing) that I need.  I could fetch MonoDevelop from the SVN, sure, but I want to make building UC easy so I'll wait for the next MonoDevelop release.</p>
+<p>It'd be also great to optimize the TreeModel underlying the panels, but it's not possible to implement a custom TreeModel interface in C# yet.  I tried to play with TreeView to maximize the rendering speed of the panels, but it turned out that the TreeModel is the real bottleneck.  I'll keep my eye on the TreeModel binding support in C#.</p>
+</body>
+</html>

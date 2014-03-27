@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Making Flash Screencasts Under GNOME</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Making Flash Screencasts Under GNOME</h1>
+<p>2006-03-01 11:04:07 GMT</p>
+<p>People say a picture worths thousand words.  If that's true, then a screencast must worth probably millions of words.  Seeing an application working in live, you can get a feel of it without any deployment on your part.  Screencasts provide an immediate, solid proof that your application works and it's a uniquely powerful marketing, demonstration and teaching tool also.</p>
+<p>I'm so satisfied with the <a href="http://monda.hu/blog/2006/02/28/ultimate-commander-listing-configuration-implemented/">first UC screencast</a> I made yesterday, that I'm gonna detail how to setup an environment that is ideal for making flash screencasts in a streamlined fashion using <code>vnc2swf</code> and GNOME Vino.</p>
+<p>You may ask why flash is better than any other alternatives and I'll answer this question as short and conscise as I can:</p>
+<ul>
+<li>There are animated GIFs and which are more widely supported.  In my experience they are good for small, short movies, but they aren't feasible for more robust movies, because it wasn't supposed by the developers of GIF libraries that some perverts out there will use animated GIFs for anything long and big and as a result of this, big GIFs can easily make applications crash.</li>
+<li>One can also capture his/her screencast in MPEG or AVI.  My problem with them is that embedded videos don't work smoothly with browsers on Linux, so one has usually download the movie first, then open it which makes the overall experience weaker.</li>
+<li>The third option is (as you have hopefully already guessed) flash, which seems pretty ideal for this kind of application.</li>
+</ul>
+<p>So here are the steps to set up a perfect home "screencasting studio":</p>
+<ol>
+<li><em>Create Cameraman</em>: Create a special account dedicated for making screencasts: <code>adduser cameraman</code>.</li>
+<li><em>Create a GDM Launcher</em>: Create an custom application launcher on your panel with the command field: "<code>sh -c "zenity –question &amp;&amp; gdmflexiserver"</code>".  Pressing this button should fork another X server with GDM.  <em>Thanks <a href="http://dgyimesi.uw.hu" title="http://dgyimesi.uw.hu">Dömi</a> for letting me know about <code>gdmflexiserver</code>.</em></li>
+<li><em>Log in</em> as cameraman in parallel using the nifty button we've just created.</li>
+<li><em>Set optimal resolution</em> for capturing.  Click to GNOME Menu &gt; Desktop &gt; Preferences &gt; Screen Resolution.  We should optimize screencasts for 1024&#215;768, since it's the lowest common denominator for everyone who's not living in the stone age.  I choosed 928&#215;696, because it should fit fairly well in a maximized browser window on a desktop using 1024&#215;768.</li>
+<li><em>Adjust frequency</em>: In case your monitor frequency sucks and it cannot be set  using the Screen Resolution dialog, I suggest you using <code>xvidtune</code>.  Set the optimal values for your monitor for the given resolution and press the Show button that dumps the modeline of the actual settings to stdout which you should cut and paste to <code>/etc/X11/xorg.conf</code>.</li>
+<li><em>Set up user session switching</em> buttons on the panel for convenience.  Create custom launchers on both your desktop and cameraman's desktop using the command fields: "<code>sudo chvt 8</code>" and "<code>sudo chvt 7</code>" respectively.  As a side note, if you hate <code>sudo</code> as much as I do, you can also use <a href="https://github.com/mondalaci/rootify">power</a>.</li>
+<li><em>Fire up Vino</em> as <a href="http://gnomejournal.org/article/29/remote-desktop-administration-using-vino" title="http://gnomejournal.org/article/29/remote-desktop-administration-using-vino">written</a> in GNOME Journal.</li>
+<li><em>Install <code><a href="http://www.unixuser.org/~euske/vnc2swf/" title="http://www.unixuser.org/~euske/vnc2swf/">vnc2swf</a></code>.</em>  I had to use <code>vnc2swf</code>, because <code>pyvnc2swf-0.8.2</code> still couldn't capture mouse cursor despite what the documentation says.</li>
+<li><em>Create capturing button</em> on the panel which calls the following script:</li>
+</ol>
+<pre lang="bash">#!/bin/sh
+
+RECORDINGDIR=~/screencasts
+OUTFILENAME=`date +%Y-%m-%d--%H-%M-%S`
+VNCHOST=localhost:0
+
+cd $RECORDINGDIR
+killall vnc2swf \
+&& zenity --info --text "Recording successfully completed" \
+|| vnc2swf -nowindow $OUTFILENAME.swf $VNCHOST > $OUTFILENAME.html
+</pre>
+<p>10. <em>Create a <code>screencasts</code> directory</em> in the home directory of cameraman.  After a few screencasts, this directory should look like this:</p>
+<pre lang="bash">
+laci@whisper:/home/cameraman/screencasts$ ls -l
+total 3619
+-rw-r--r-- 1 cameraman cameraman     583 Feb 28 17:43 2006-02-28--17-43-38.html
+-rw-r--r-- 1 cameraman cameraman   97446 Feb 28 17:43 2006-02-28--17-43-38.swf
+-rw-r--r-- 1 cameraman cameraman     583 Feb 28 17:44 2006-02-28--17-43-54.html
+-rw-r--r-- 1 cameraman cameraman  104421 Feb 28 17:44 2006-02-28--17-43-54.swf
+-rw-r--r-- 1 cameraman cameraman     583 Feb 28 17:47 2006-02-28--17-47-26.html
+-rw-r--r-- 1 cameraman cameraman  124987 Feb 28 17:47 2006-02-28--17-47-26.swf
+-rw-r--r-- 1 cameraman cameraman     583 Feb 28 18:19 2006-02-28--18-17-40.html
+-rw-r--r-- 1 cameraman cameraman 3354217 Feb 28 18:19 2006-02-28--18-17-40.swf
+</pre>
+<p>Happy screencasting!</p>
+</body>
+</html>

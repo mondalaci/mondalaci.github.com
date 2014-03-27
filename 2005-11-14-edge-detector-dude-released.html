@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edge Detector Dude Released</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Edge Detector Dude Released</h1>
+<p>2005-11-14 21:25:27 GMT</p>
+<p>I've written yet another PyGTK application in the near past for the Digital Image Segmentation course of the university.</p>
+<p>You ask me what it really is?</p>
+<p><a href="https://github.com/mondalaci/edge-detector-dude">Edge Detector Dude</a> is a simple image manipulation application written in Python using PyGTK. It presents you the Sobel edge-detected and the gradient-directed versions of the input image. The pixels of the gradient-directed image is computed by denoting the angle of the gradient of the pixel and mapping this value as a grayscale color.</p>
+<p>Edge Detector Dude is more accurately a front end that uses the accompanying gradient utility to process the input image and visualize its result images.</p>
+<p>gradient is written in C using the Allegro game programming library.</p>
+<p>Let's see this dude:</p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/edge-detector-dude.png" alt="edge-detector-dude" width="640" height="518" class="alignnone size-full wp-image-2745" /></p>
+<p>I'm proud of this GUI design because I think it's very usable, however there are several things that could be improved:</p>
+<ul>
+<li>Add a "View" button to view images.  Currently the statausbar mentions that images can be viewed by double clicking on their names, but it's not very eye-catching and novices may miss it.</li>
+<li>Add support for other file formats.  For some strange reason Allegro only handled BMPs, however according to the documentation it should handle a wide variety of image formats.</li>
+<li>Replace the gradient-directed image with something nicer.  It's really ugly, no questions, but I had no choice because that was the exact task to be done.</li>
+</ul>
+</body>
+</html>

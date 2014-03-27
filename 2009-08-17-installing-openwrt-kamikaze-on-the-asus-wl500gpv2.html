@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Installing OpenWrt Kamikaze on the ASUS WL500GPV2</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Installing OpenWrt Kamikaze on the ASUS WL500GPV2</h1>
+<p>2009-08-17 10:34:40 GMT</p>
+<p>I'm a big fan of <a href="http://openwrt.org/">OpenWrt</a> for more than a year when I got to know it.  I daydreamed about a powerful router that is fully controllable and runs Linux.   Little did I know in those times about specialized Linux distributions running on routers.  I can remember when I started to chat with my good friend, Dömi about this topic and he immediately mentioned OpenWrt.  Fast forward one month and an ASUS WL500GPV2 was sitting on my desk running OpenWrt Kamikaze.</p>
+<p>I'd like to mention that although I'll talk about the V2, I wish I would have bought the V1 because that's much more hackable.  You can upgrade its memory and/or replace its Mini PCI WiFi card, but you can't do that with the V2, unfortunately.</p>
+<p>The reason I put this guide together is that I wanted a detailed configuration guide on the topic because it's quite demanding to rebuild my mental model of how things work after some months.  Be aware that that this HOWTO is not for the faint of heart.  I assume you know what you're doing.</p>
+<p><strong>1) Download the firmware</strong></p>
+<p>wget http://downloads.openwrt.org/snapshots/trunk/brcm-2.4/openwrt-brcm-2.4-squashfs.trx</p>
+<p><strong>2) Set up localhost to hang on the 192.168.1.x subnet</strong></p>
+<p>sudo ifconfig br0 down  # in case you use VirtualBox host networking<br />
+sudo brctl delbr br0  # also for VirtualBox<br />
+sudo ifconfig eth1 192.168.1.2</p>
+<p><strong>3) Flash the router firmware</strong></p>
+<p># Boot the router into diagnostic mode by pressing the reset button right after restart.  Wait until the power LED starts blinking.<br />
+atftp --trace --option "timeout 1" --option "mode octet" --put --local-file openwrt-brcm-2.4-squashfs.trx 192.168.1.1<br />
+# Wait at least half a minute otherwise the router won't get flashed properly and boots into diagnostic mode.</p>
+<p><strong>4) Set up SSH public key authentification</strong></p>
+<p># Disable and enable router and wait for the boot that takes about half minutes.<br />
+telnet 192.168.1.1<br />
+passwd<br />
+# At this point telnetd gets stopped and the dropbear sshd gets started.<br />
+exit<br />
+scp ~/.ssh/id_rsa.pub root@192.168.1.1:/etc/dropbear/authorized_keys<br />
+ssh root@192.168.1.1</p>
+<p><strong>5) Set up WAN connection</strong></p>
+<p># Use this for cable modem connections:<br />
+uci set network.wan.proto=dhcp</p>
+<p># Use this for ADSL connections:<br />
+uci set network.wan.proto=pppoe<br />
+uci set network.wan.username=<em>yourusername</em><br />
+uci set network.wan.password=<em>yourpassword</em></p>
+<p># Let's commit the changes finally:<br />
+uci commit network<br />
+ifup wan<br />
+reboot  # If the WAN connection is still down at this point.</p>
+<p><strong>6) Set up WiFi connection</strong></p>
+<p>uci set wireless.wl0.disabled=0<br />
+uci set wireless.@wifi-iface[0].ssid=<em>yourssid</em><br />
+uci set wireless.@wifi-iface[0].encryption=psk2<br />
+uci set wireless.@wifi-iface[0].key=<em>yourpassword</em><br />
+uci commit wireless<br />
+wifi</p>
+<p><strong>7) Install packages<br />
+</strong></p>
+<p>opkg update<br />
+opkg install mc ndyndns etherwake ntpclient openvpn kmod-fs-ext2 fdisk e2fsprogs kmod-usb2 kmod-usb-storage nmap<br />
+# Here you can remove every luci related packages if you don't need the web interface.</p>
+<p><strong>8) Restore configuration</strong></p>
+<p># It's pretty easy to restore configuration from a backup once you made a backup like this:<br />
+ssh your-router 'tar czf - /etc /root' &gt; kamikaze-backup-`date +%Y-%m-%d_%H-%M-%S`.tar.gz</p>
+<p><strong>9) Supercharge storage space</strong></p>
+<p># Plug in the pendrive.<br />
+mkfs.ext2 /dev/scsi/host0/bus0/target0/lun0/part1<br />
+mount /dev/scsi/host0/bus0/target0/lun0/part1 /mnt<br />
+cp -a /bin /etc /home /lib /root /sbin /usr /www /mnt<br />
+mkdir /mnt/dev /mnt/jffs /mnt/mnt /mnt/proc /mnt/rom /mnt/sys /mnt/tmp /mnt/var<br />
+umount /mnt</p>
+<pre lang="text">cat < <END >/etc/config/bootfromexternalmedia
+config bootfromexternalmedia
+    option target   '/mnt'
+    option device   '/dev/scsi/host0/bus0/target0/lun0/part1'
+    option modules  'usbcore ehci-hcd scsi_mod sd_mod usb-storage jbd ext2'
+    option enabled  '1'
+END
+</pre>
+<pre lang="text">cat < <END >/sbin/init.new
+#!/bin/sh
+. /etc/functions.sh
+config_load "bootfromexternalmedia"
+local section=\$CONFIG_SECTION
+config_get      "target"   "\$section" "target"
+config_get      "device"   "\$section" "device"
+config_get      "gpiomask" "\$section" "gpiomask"
+config_get      "modules"  "\$section" "modules"
+config_get_bool "enabled"  "\$section" "enabled" '1'
+[ "\$enabled" -gt 0 ] && {
+    [ -n "\$gpiomask" ] && {
+        echo "\$gpiomask" > /proc/diag/gpiomask
+    }
+    for module in \$modules; do {
+        insmod \$module
+    }; done
+    sleep 5s
+    mount -o rw "\$device" \$target
+    [ -x \$target/sbin/init ] && {
+        . /bin/firstboot
+        pivot \$target \$target
+    }
+}
+exec /bin/busybox init
+END</pre>
+<p>chmod a+x /sbin/init.new<br />
+ln -f -s /sbin/init.new /sbin/init<br />
+reboot</p>
+<hr>Comment written by <a href="http://www.razametal.org">RazaMetaL</a> at 2010-02-04 18:12:50 GMT:<br><p>Hi,</p>
+<p>It is possible to run apt-cacher-ng or apt-proxy on this device? I've some machines on my LAN with debian installed as operating system, apt-cacher-ng is very usefull to sabe bandwithd.</p>
+<p>Regards,</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2010-02-04 19:32:00 GMT:<br><p>Hi RazaMetaL,</p>
+<p>Although nor apt-cacher-ng, nor apt-proxy has any OpenWrt packages yet, I'm pretty sure it's possible to do.  The only showstopper I can think of if your chosen software uses a scripting language and uses loads of modules that are not present in OpenWrt.  Even in this situation it should be possible but it'd involve more work, but if everything fails, then you can write a BASH script that listens on a port and does caching on the filesystem.</p>
+
+</body>
+</html>

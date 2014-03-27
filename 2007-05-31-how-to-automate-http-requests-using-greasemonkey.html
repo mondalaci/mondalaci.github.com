@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to Automate HTTP Requests Using Greasemonkey</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to Automate HTTP Requests Using Greasemonkey</h1>
+<p>2007-05-31 13:23:34 GMT</p>
+<p>There are some sites that I use daily.  The sad thing is, many of them don't provide me any mechanisms to log in automatically, so I have to always do it manually.  I also had to fill the same form in on these sites and carry on the same operation over and over again.  This was very frustrating for me so I decided to come up with a solution.  <a href="http://www.greasespot.net/" title="http://www.greasespot.net/">Greasemonkey</a> seemed to have the potential to solve my burning need.</p>
+<p>I want to share the core function I've written that can help you in such scenarios.  It's a simple, but very useful one.</p>
+<p><script src="https://gist.github.com/mondalaci/5304529.js"></script></p>
+<p>Requests are typically triggered based on the content of <code>window.location.href</code> or <code>document.referrer</code>.</p>
+<p>Greasemonkey has some <a href="http://userscripts.org/forums/1/topics/499" title="http://userscripts.org/forums/1/topics/499">ugly annoyances</a>, but fortunately most of them can be <a href="http://www.oreillynet.com/pub/a/network/2005/11/01/avoid-common-greasemonkey-pitfalls.html" title="http://www.oreillynet.com/pub/a/network/2005/11/01/avoid-common-greasemonkey-pitfalls.html">worked around</a>.  The <a href="http://livehttpheaders.mozdev.org/" title="http://livehttpheaders.mozdev.org/">LiveHTTPHeaders</a> add-on can also help you tremendously constructing the fields of the forms.</p>
+</body>
+</html>

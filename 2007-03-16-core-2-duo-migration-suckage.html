@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Core 2 Duo Migration Suckage</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Core 2 Duo Migration Suckage</h1>
+<p>2007-03-16 10:56:59 GMT</p>
+<p>I bought a Core 2 Duo configuration last week.  My old machine, an Athlon 2500+ with 1G RAM didn't feel responsive enough.  I use lots of resource-hungry applications on Linux and my desktop felt sluggish.  I had to move on.</p>
+<p>One may expect that everything works smoothly after such an upgrade regarding software configuration on Linux, right?</p>
+<p>Wrong!</p>
+<p>This suckage certainly ranks within the top 10 in my life.  I sucked days to get things work properly and I want to share the details because I do not wish, even my worst enemy to go through the pain I went through.</p>
+<p>First let's summarize the major components of my configuration so you can identify whether you may hit the same problems with your hardware.</p>
+<ul>
+<li>Intel Core 2 Duo E6300</li>
+<li><a href="http://www.asus.com/products4.aspx?modelmenu=1&amp;model=1347&amp;l1=3&amp;l2=11&amp;l3=307" title="http://www.asus.com/products4.aspx?modelmenu=1&amp;model=1347&amp;l1=3&amp;l2=11&amp;l3=307">ASUS P5B-E</a></li>
+</ul>
+<p>Let's see the problems I faced with:</p>
+<p><em>Suckage #1</em></p>
+<ul>
+<li><strong>Problem</strong>: I couldn't measure the temperature of the CPU.</li>
+<li><strong>Solution</strong>: I had to patch Linux 2.6.20 with the <a href="http://www.debianhelp.org/node/5156" title="http://www.debianhelp.org/node/5156">coretemp patch</a> and update the <a href="http://www.lm-sensors.org/" title="http://www.lm-sensors.org/">lm-sensors</a> userspace utitities.  I downloaded and patched Linux 2.6.20, built it <a href="http://www.howtoforge.com/kernel_compilation_ubuntu" title="http://www.howtoforge.com/kernel_compilation_ubuntu">the Ubuntu way</a> a rebooted.  Linux couldn't see my SATA drive during the boot process.  I finally realized that the SATA configuration options have changed in Linux 2.6.20 so it's not enough to use the standard Ubuntu config.  You have to enable the new SATA options.  Unfortunately the GNOME panel applet doesn't support measuring the temperature of both cores yet, but it's usable anyways.</li>
+</ul>
+<p><em>Suckage #2</em></p>
+<ul>
+<li><strong>Problem</strong>: I couldn't build the Nvidia driver because it complained about something during the complation process.</li>
+<li><strong>Solution</strong>: It turned out that the Nvidia driver compeletly misinterpreted the presence of the Vanderpool paravirualization technology and because of that it throwed a false error during compilation.  I recompiled the kernel with Vanderpool turned off and everything went all right.  Fortunately I don't want to experiment with KVM yet so I can live without paravirtualization for a while.</li>
+</ul>
+<p><em>Suckage #3</em></p>
+<ul>
+<li><strong>Problem</strong>: GDM didn't allow me to log in.</li>
+<li><strong>Solution</strong>: Turned out that GDM masturbates with the <code>~/.Xauthority</code> file in its wicked ways.  The odd things is that it only does so under Linux 2.6.20.  I managed to solve this problem by injecting into the beginning of <code>/etc/gdm/Init/Default</code> the following lines:</li>
+</ul>
+<pre lang="bash">xauthority=/home/laci/.Xauthority
+> $xauthority
+chmod 644 $xauthority
+</pre>
+<p><em>Suckage #4</em></p>
+<ul>
+<li><strong>Problem</strong>: My microphone didn't work.</li>
+<li><strong>Solution</strong>: After a long time I realized that messing around with KMix always solved my issue, but I didn't know exactly what have I done that made it work.  Well, here's the mysterious fix that I included into my <code>/etc/init.d/alsa-utils</code>:</li>
+</ul>
+<pre lang="text">amixer sset 'Input Source',0 'Aux'
+amixer sset 'Input Source',0 'Mic'
+</pre>
+<p>Based on the problems arised I must conclude that Linux is not ready regarding high-end hardware.  Ubuntu is a fairly user-friendly distribution and yet, you just saw what it takes to get it working on recent hardware.  No one can expect an Average Joe or Aunt Tillie to solve problems of such caliber.</p>
+<p>After going through all this pain I'm very satisfied with my system.  Intel Core 2 is an incredibly capable platform.  Using 2G RAM with Core 2 makes a system hyper-responsive.  The only component that is slow is the hard drive, but once you loaded your apps, you cannot have any complaints about the performance.</p>
+</body>
+</html>

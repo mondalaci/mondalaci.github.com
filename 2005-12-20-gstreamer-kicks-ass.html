@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GStreamer Kicks Ass</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>GStreamer Kicks Ass</h1>
+<p>2005-12-20 22:36:02 GMT</p>
+<p>GStreamer seems to be an extremely powerful multimedia framework to me.  Though I'm not really familiar with it yet, it's not hard to see its power by checking out an example script in its distribution.</p>
+<p>Let's see player.py:</p>
+<pre lang="python">#!/usr/bin/env python
+
+import sys
+import gst
+import gst.play
+
+def nano2str(nanos):
+    ts = nanos / gst.SECOND
+    return '%02d:%02d:%02d.%06d' % (ts / 3600,
+                                    ts / 60,
+                                    ts % 60,
+                                    nanos % gst.SECOND)
+
+def stream_length_cb(play, ns):
+    print 'stream length: %s' % nano2str(ns)
+
+def have_video_size_cb(play, w, h):
+    print 'video size %d %d' % (w, h)
+
+def found_tag_cb(play, src, tags):
+    for tag in tags.keys():
+        print &quot;%s: %s&quot; % (gst.tag_get_nick(tag), tags[tag])
+
+def main(args):
+    if len(args) != 2:
+        print 'Usage: %s file' % args[0]
+        return -1
+
+    filename = args[1]
+
+    play = gst.play.Play()
+    play.connect('stream-length', stream_length_cb)
+    play.connect('have-video-size', have_video_size_cb)
+    play.connect('found-tag', found_tag_cb)
+    play.connect('eos', lambda p: gst.main_quit())
+
+    # Setup source and sinks
+    play.set_data_src(gst.element_factory_make('filesrc'))
+    play.set_audio_sink(gst.element_factory_make('osssink'))
+    play.set_video_sink(gst.element_factory_make('fakesink'))
+
+    # Point location to our filename
+    play.set_location(filename)
+
+    # Start playing the stream
+    play.set_state(gst.STATE_PLAYING)
+    gst.main()
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv))
+</pre>
+<p>
+The metadata GStreamer exposes is also impressive to watch.
+</p>
+<pre lang="text">
+title: Behind These Hazel Eyes
+track number: 3
+genre: Pop
+album: Breakaway
+artist: Kelly Clarkson
+date: 731581
+title: Behind These Hazel Eyes
+track number: 3
+genre: Pop
+album: Breakaway
+artist: Kelly Clarkson
+date: 731581
+duration: 199000000000
+bitrate: 237413
+layer: 3
+mode: Joint Stereo
+emphasis: None
+stream length: 00:03:13.997503777
+</pre>
+<p>Given how powerful GStreamer and Python is, it'd be not hard to write a basic audio player, like XMMS that implements the most usual use cases in a very short amount of time, only with one or two thousands of lines of code using Python, GStreamer and Glade.</p>
+<p>As a sidenote, GStreamer has much more power than demonstrated here.  It's a robust, complex, high-level multimedia framework which may dominate our universe one day.  So beware and <a href="http://www.gstreamer.net" title="http://www.gstreamer.net">read on</a>.</p>
+</body>
+</html>

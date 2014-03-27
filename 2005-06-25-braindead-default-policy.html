@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Braindead Defaults</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Braindead Defaults</h1>
+<p>2005-06-25 09:53:17 GMT</p>
+<p>Linux lacks sane defaults in a lot of areas.  One of them is mounting a samba share with</p>
+<pre lang="bash">mount -t smbfs -o password=mypassword,codepage=cp852,iocharset=iso8859-2,uid=lee,gid=users,fmask=644,dmask=755 //hostname/sharename targetdir</pre>
+<p>or mounting a pendrive using the corresponding fstab line</p>
+<pre lang="fstab">/dev/sda1 /mnt/pendrive auto rw,user,noauto,shortname=mixed,dmask=022,fmask=133 0 0</pre>
+<p>There should be some kind of higher level configuration layer because that's above is what most users want.</p>
+<p><strong>Power 0.2 released</strong></p>
+<p>I've just released <a href="http://code.google.com/p/rootify/">power</a> 0.2.  It has several small improvements.</p>
+</body>
+</html>

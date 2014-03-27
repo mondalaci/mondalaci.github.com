@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tabs vs Spaces</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Tabs vs Spaces</h1>
+<p>2011-04-24 00:37:36 GMT</p>
+<p>Ok, this is some serious shit that drives me crazy. The reason why you should never, and I mean never and let me emphasize NEVER in your entire life use tabs for indentation is because:</p>
+<ul>
+<li>We use spaces in the code to separate words anyways.  Why do you wanna introduce yet another character?</li>
+<li>Tabs will be displayed differently depending on the editor in question.</li>
+<li>People are gonna mix tabs and spaces in surprisingly novel (or just plain random) ways which will screw indentation even more than before because it's harder for editors to figure out the correct indentation in this case.</li>
+<li>The mixture of tabs and spaces will produce lots of redundant lines in your {SVN / Git / whatever VCS} diffs because developers will (un)intentionally change them which is gonna be a lot of fun during code reviews.</li>
+<li>Tabs are evil!  They're evil, evil, evil!  Don't use 'em! (Except for Makefiles (which as you may suspect are EVIL!))</li>
+</ul>
+<p>As a last word, it's not possible to avoid using spaces for indentation in such scenarios:</p>
+<pre>
+&lt;tab&gt;&lt;tab&gt;&lt;tab&gt;function_call(arg1, arg2, arg3,
+&lt;tab&gt;&lt;tab&gt;&lt;tab&gt;              arg4, arg5, arg6);
+</pre>
+<p>Long life to spaces!</p>
+<hr>Comment written by Olivier at 2011-04-26 01:43:07 GMT:<br><p>I'm using tabs to indent my code... hahahaha &lt;- evil laugh :-P</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2011-04-26 09:53:05 GMT:<br><p>Olivier: Then you're beyond any help!  ;)</p>
+
+<hr>Comment written by <a href="http://linux.subogero.com">SzG</a> at 2012-04-08 20:18:53 GMT:<br><p>The entire Linux kernel uses Tabs for indentation.<br />
+To find out why, get the source code and read Documentation/CodingStyle.<br />
+It is a very funny and wise piece of literature. </p>
+<p>Your problem is not Tabs for indentation. Your problem is people who've never learned how to use a decent text-editor like vi, vi, vi or vi. The trick is this (~/.vimrc):</p>
+<pre>
+set autoindent
+set copyindent
+</pre>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2012-04-09 01:26:56 GMT:<br><p>I've had a great time reading Documentation/CodingStyle and felt in love with it.</p>
+<p>Using tabs for identation could probably work for me if *all* the editors handled the mixture of tabs and spaces in a unified way and if *every* people *always* cared about using tabs and spaces the right way.  Unfortunately, it's not the case.</p>
+<p>My other gripe is not using curlies for one-liner blocks.  It may seem like a good idea first but someone will screw things eventually when extending such a one-liner block and forgetting to add the missing curlies.</p>
+<p>Apart from that this whole guide is pure gold which sould be seen by every programmer.  K&R is also my style, by the way.</p>
+<p>PS: I'm not a vi user, but I used to use Emacs.  :)</p>
+
+</body>
+</html>

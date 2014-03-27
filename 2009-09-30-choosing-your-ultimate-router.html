@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Choosing your ultimate router</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Choosing your ultimate router</h1>
+<p>2009-09-30 22:17:20 GMT</p>
+<p>There is a wide range of routers to choose from and I put lots of time to make my research about their capabilities.  Below I'll list the different categories of routers and which one I advise to buy for what applications.</p>
+<p><strong>The typical small home router</strong></p>
+<p>This type of router satisfies most user's needs.  It has a minimal amount of resources which is enough to run its proprietary OS.  Such OSes nowadays are capable of everything most users need, including DHCP, DynDNS, port forwarding and so on.  Their functionality is only accessible through their web interface.  Due to their modest resources (small memory) OpenWrt is unfortunately not an option.</p>
+<p>The main manufacturers I've encountered in this arena are TP-Link, D-Link and SMC.  I prefer TP-Link the most because not only they're reliable, but the usability of their web interface is the most pleasurable in my opinion.  I like the <a href="http://www.tp-link.com/products/product_des.asp?id=3">TL-WR 642G</a> pretty much.</p>
+<p>Their regular price is around $30.</p>
+<p><strong>The not-so-small, hackable home router</strong></p>
+<p>This is the category of routers that are capable of running <a href="http://openwrt.org/">OpenWrt</a> which opens the gate of ultimate possibilities for the hot-shot geek like myself.  My greatest concern is that most of them use Broadcom wifi chipset which only has a closed source driver.  This has the unconvenient consequence that you'll only be able to use with the 2.4 kernel with this binary driver.  It seems that Broadcom doesn't give a shit about the FOSS world and that bothers me deeply.</p>
+<p><a href="http://oldwiki.openwrt.org/Hardware(2f)Linksys.html">Linksys</a> and <a href="http://oldwiki.openwrt.org/Hardware(2f)Asus.html">ASUS</a> are the main contenders in this arena.</p>
+<p>The <a href="http://oldwiki.openwrt.org/OpenWrtDocs(2f)Hardware(2f)Asus(2f)WL500GPV2.html">ASUS WL500GPV2</a> is one of the most powerful routers of its kind, has 2 USB ports and it has a reasonable price.  Get a <a href="http://oldwiki.openwrt.org/OpenWrtDocs(2f)Hardware(2f)Asus(2f)WL500GP.html">V1</a> instead of a V2 if you can because its Broadcom wifi chip resides in a Mini PCI slot which you can replace with an Atheros wifi card.</p>
+<p>The <a href="http://oldwiki.openwrt.org/OpenWrtDocs(2f)Hardware(2f)Linksys(2f)WRT350N.html">Linksys WRT350N</a> is currently the most powerful one.  It's a more expensive router, but it has Atheros wifi, a faster CPU and USB.  Unfortunately I'm not sure whether it's well supported by OpenWrt.</p>
+<p>The typical price of these routers is around $75 - $135.</p>
+<p><strong>RouterBoard</strong></p>
+<p><a href="http://www.routerboard.com/">RouterBOARD</a> is quite a versatile platform for implementing one's networking needs.  It's probably a good choice for upper grade SOHOs or lowest grade SMEs.  <a href="http://www.routerboard.com/pricelist.php?showProduct=54">RB493AH</a> seems quite lovely to me.  This is the level where you can use Debian instead of OpenWrt.  You also get a license for their RouterOS along with any RouterBOARD router which is surely well tested and user friendly but I personally rather stick with Linux.  Speaking of SOHO geek usage it could drive an L7 filter or relatively high-traffic VPN.</p>
+<p>Their price with all the accessories (wifi card, CF card, case) can be around $300.</p>
+<p><strong>Mini-ITX</strong></p>
+<p>If you need a low-power consumption Core 2 Duo machine with gigabytes of RAM, look no further and enter the world of <a href="http://en.wikipedia.org/wiki/Mini-ITX">Mini-ITX</a>.  Such a router could drive a medium or even higher grade SME.  This choice is not really cheap and that's because it has lots of horsepower and there are also many things on the mainboard which you'll never use in a router such as the VGA adapter.  I think this stuff is pretty much overkill for SOHO usage, even for geek applications.</p>
+<p>The price is around $600 or more with all the accessories included (mainboard, processor, RAM, wifi, HDD, case).</p>
+</body>
+</html>

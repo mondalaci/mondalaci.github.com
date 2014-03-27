@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to easily log the output of your scripts with per line timestamps</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to easily log the output of your scripts with per line timestamps</h1>
+<p>2010-12-25 12:44:48 GMT</p>
+<p>I've faced a number of times with this scenario: I have some scripts and I wanna log their output in a way to timestamp every lines but I don't wanna write any additional code to achieve the outcome.</p>
+<p>Meet timestamper.</p>
+<p><script src="https://gist.github.com/mondalaci/5305788.js"></script></p>
+<p>Save it as "timestamper" to a directory in your $PATH and make it executable.  Using it is a no brainer:</p>
+<pre lang="bash" line="0">
+./myscript 2>&1 | timestamper >> myscript.log
+</pre>
+<p>Could it be any simpler?  I don't think so.</p>
+</body>
+</html>

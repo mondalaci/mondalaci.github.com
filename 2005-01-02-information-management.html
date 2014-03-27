@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Managing Our Stuff Better</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Managing Our Stuff Better</h1>
+<p>2005-01-02 13:50:45 GMT</p>
+<p>Slobodan Celenkovic has written a nice <a href="http://osnews.com/story.php?news_id=9228">article</a> on combining database systems with file systems.  I've been thinking a lot on this issue and I want to spend time in the near future understanding the current free alternatives better, but I already have some thoughts on how such an ideal system should be designed.</p>
+<p><b>Let There Be Objects</b></p>
+<p>First of all there should be an object model designed.  It is a layer above a filesystem stored in an DBMS.  Objects should be stored in a DBMS because it makes us able to search them at light speed.  The object model makes one able to work with objects instead of files.  Objects have metadata associated with them.  A set of standard object types should be defined for every MIME types.  The object type system should support inheritance so MP3s and VOBs were both Audio objects and this would make users able searching on a higher level.  Additionally the object type system should be extendable with system wide, user specific and maybe group specific metadata.  This way Brian could assign to his audio files how much he likes them or Mary could categorize her doggy pictures based on the name or color of the related dog.</p>
+<p><b>Suck Metadata from Files into Objects</b></p>
+<p>An ideal system should monitor the filesystem and whenever a file created or changed it would extract the metadata from it and refresh the related object's metadata.  This would require a set of extractors.  One for every file type to be created.  That's what <a href="http://www.gnome.org/projects/beagle/">Beagle</a> is doing with <a href="http://lwn.net/Articles/104343/">inotify</a>.</p>
+<p><b>Related Objects</b></p>
+<p>Individual objects are not enough.  Suppose you want to categorize your audio collections by (among other criterias) albums.  In this situation you want to declare a new object type, let's say AudioAlbum.  Such an object type would reference a set of related Audio objects.  One could also create a Performer type which would store the name and home page of the related performer.  Maybe you realized that these objects have nothing to do with files.  The standard objects are based on standard MIME types, but these are higher level, more abstract objects that can relate those lower level objects which are connected to files.</p>
+<p>By the way file is a loose concept and the only reason we shouldn't throw them away is backward compatibility.  Because legacy appilcations all use the VFS API.</p>
+<p><b>Indexed Objects</b></p>
+<p>In the recent past I've been more and more conscious about the importance of indexing.  Since I have a high speed Internet connection I use Google very often with excellent results.  So building a system which is capable of the same thing would be fascinating and this feature is so powerful that we really need it.  So indexing is a really important issue.</p>
+<p><b>News</b></p>
+<p>News.com made an <a href="http://news.com.com/Torvalds+a+Solaris+skeptic/2008-1082_3-5498799.html">interview</a> with Linus.  He mentions that he's a short-term person.  I've been never thought in these terms.  I'm definetly a long-term one.  If Linus hadn't been a short-term person, Linux wouldn't have been born.</p>
+<p><b>Firefox Extensions</b></p>
+<p>Firefox is the best browser in the universe, no doubt.  Am I maybe somewhat opionated?  I realized that some <a href="http://texturizer.net/firefox/extensions/">extensions</a> make it much more usable and some time ago I tried out quite a lot of them so here are the ones I use:</p>
+<ul>
+<li>Mouse Gestures</li>
+<li>Tabbrowser Extensions</li>
+<li>Link Toolbar</li>
+<li>Download Statusbar</li>
+<li>Download Manager Tweak</li>
+</ul>
+</body>
+</html>

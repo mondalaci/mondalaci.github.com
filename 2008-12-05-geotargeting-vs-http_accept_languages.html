@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Geotargeting vs HTTP_ACCEPT_LANGUAGE</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Geotargeting vs HTTP_ACCEPT_LANGUAGE</h1>
+<p>2008-12-05 22:38:02 GMT</p>
+<p>One might ponder whether to use IP based geotargeting or the HTTP_ACCEPT_LANGUAGE HTTP header to determinte what is the native language of the user.</p>
+<p>I can imagine two scenarios:</p>
+<p><strong>Providing the user the localized version of your site</strong></p>
+<p>In this case use HTTP_ACCEPT_LANGUAGE.  Let me tell you why it's preferred to GeoIP targeting.</p>
+<ul>
+<li>There are some countries where people speak more languages.</li>
+<li>The user might be in a foreign country, but his/her language is set up in the browser.</li>
+<li>GeoIP databases are usually imperfect.</li>
+<li>The browser langauge settings should be correct in most cases.</li>
+</ul>
+<p><strong>Providing geographically relevant resources to the user</strong></p>
+<p>In this case IP based geotargeting is the way to go.  You can find some free databases of inferior quality or buy commercial databases of superior quality.</p>
+</body>
+</html>

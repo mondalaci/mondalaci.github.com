@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The three things that could be better in Python</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>The three things that could be better in Python</h1>
+<p>2008-12-01 06:19:57 GMT</p>
+<blockquote><p>
+2008-11-02 update: The legendary Joe Shaw made me realize (in the comments below) that there's a (very unintuitive) ternary operator for Python from Python 2.5 which one can use as:
+</p></blockquote>
+<pre lang="python">
+a if condition else b
+</pre>
+<p>Python is my favorite scripting language.  I think it's almost perfect and there are almost no things that could be improved in it.  Almost...</p>
+<ul>
+<li>There's <del>no</del>  ternary operator in Python which I'd find very useful, but the designers probably felt that it's not clean enough.  Fortunately one can make something in Python that resembles the ternary operator:</li>
+</ul>
+<pre lang="python">
+def T(condition, a, b):
+    if condition:
+        return a
+    else:
+        return b
+</pre>
+<ul>
+<li>True and False must be written with capital letters.  I realize that True and False are objects in Python but it's impractical to write them with capital letters.  One can easily solve this problem:</li>
+</ul>
+<pre lang="python">
+true = True
+false = False
+</pre>
+<ul>
+<li>Strings are not Unicode by default and one has to prefix them with the "u" letter to make Python interpret them as Unicode strings.  Well, that'll be solved in Python 3 if I remember correctly.</li>
+</ul>
+<hr>Comment written by <a href="http://joeshaw.org">Joe Shaw</a> at 2008-12-01 18:14:10 GMT:<br><p>A ternary operator was added to Python 2.5.  The syntax is different from C-style, though.  Instead of:</p>
+<p><code>foo ? bar : baz</code></p>
+<p>you have:</p>
+<p><code>bar if foo else baz</code></p>
+<p>which I find to be a lot more confusing, but I guess it suggests that the else clause is the less likely case to occur.</p>
+
+<hr>Comment written by <a href="http://laci.monda.hu">Laci</a> at 2008-12-02 01:40:57 GMT:<br><p>Thanks for bringing this to my attention, Joe!  The if - else construct works for me like a charm, although I also find this syntax confusing.</p>
+
+</body>
+</html>

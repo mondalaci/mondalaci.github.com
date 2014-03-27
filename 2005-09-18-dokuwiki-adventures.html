@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DokuWiki Adventures</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>DokuWiki Adventures</h1>
+<p>2005-09-18 16:16:02 GMT</p>
+<p>I've just installed <a title="http://wiki.splitbrain.org/wiki:dokuwiki" href="http://wiki.splitbrain.org/wiki:dokuwiki">DokuWiki</a> as the engine of <a title="http://monda.hu/klari" href="http://mondaklara.hu">my mother's home page</a>.  Its content is expected to be edited for some weeks until it'll be ready.  There are many things why DokuWiki rocks so much.  My favorite features are:</p>
+<ul>
+<li>Very <a title="http://wiki.splitbrain.org/wiki:syntax" href="http://wiki.splitbrain.org/wiki:syntax">usable wikilanguage</a>.</li>
+<li>Super clean stylesheet borrowed from Plone.  Yeah!</li>
+<li>Simple, but usable design.</li>
+</ul>
+<p>There are several (painful and boring) steps to install DokuWiki as the basis of your homepage and they are related to user account management and usability improvements.  I wanna save you and myself from the pain of figuring this all out again in the future so here are the steps to make this stuff work:</p>
+<ul>
+<li><em>Make the source work on the platform</em>: Sometimes it's not as easy as it might sound.  My domain is hosted on http://ultraweb.hu.  Unfortunately the paranoid sysadmins have decided to disable several critical PHP functions that DokuWiki happens to use extensively such as <code>realpath</code>.  In order to solve that problem one needs to hack DokuWiki by using a replacement function.  Fortunately the PHP community has provided many of them and a fine implementation is made by &lt;<em>carlosreche at yahoo dot com</em>&gt; which can be downloaded from <a title="http://monda.hu/blog/wp-content/uploads/myrealpath.php_.download" href="http://monda.hu/blog/wp-content/uploads/myrealpath.php_.download">here</a>.  If you have the same problem, just copy it to every DokuWiki directories that has a file that needs <code>realpath</code>, require_once it in them and replace the <code>realpath</code> calls with <code>myrealpath</code>.  That's all.</li>
+<li><em>Manage user accounts</em>: If you want DokuWiki as your home page engine, you should restrict its default permissions because you don't want allow anyone to edit it.</li>
+</ul>
+<ul>
+<li><em>Restrict visitors to only see, but not to edit the pages</em>: In <code>&lt;dokuwiki_root&gt;/conf/dokuwiki.php</code> set <code>useacl</code> to <code>1</code> and set <code>superuser</code> to "<code>@admin</code>".  Below when I say "set the variable x to y" I mean this file.  In <code>&lt;dokuwiki_root&gt;/conf/acl.auth.php</code> you only need the following line: <code>"* @ALL 1"</code>.</li>
+<li><em>Register the users through the web interface.</em></li>
+<li><em>Change the passwords of the users and make them admin</em>: Unfortunately DokuWiki doesn't provide an interface for that very basic feature so it needs to be done manually.  This <a title="http://monda.hu/~laci/scripts/dokuwiki-passgen.php" href="http://monda.hu/~laci/scripts/dokuwiki-passgen.php">nifty script</a> I've written will do the work if you use the default smd5 crypt method.  Take its output and replace the second field in every line of <code>&lt;dokuwiki_root&gt;/conf/users.auth.php</code> with it as well as the last field with "<code>admin</code>".</li>
+<li><em>Disable user registrations</em>: Since you don't want anyone to edit your page, set variable <code>openregister</code> to <code>0</code>.</li>
+</ul>
+<p><em>Improve usability:</em></p>
+<ul>
+<li><em>Allow inline HTML</em>:  DokuWiki has a rich and very usable markup language, but for several tasks (such as centering an object on the page) it's not enough.  Thats when HTML comes handy.  To use it, set the <code>htmlok</code> variable to <code>1</code>.</li>
+<li><em>Set descriptive document headings</em>: By default the heading of the document is their wikipath which is not very intuitive for most users.  Because of that you should set <code>useheading</code> to <code>1</code> to display the title of the documents instead of their wikipath.</li>
+<li><em>Install a more usable template</em>: A default DokuWiki installation has some usability deficiencies.  The most apparent is feeling lost because no navigation bar is present.  The other minor problem is that the title of the documents is located in the upper right corner rather than in the upper left.  There is a <a title="http://www.jandecaluwe.com/testwiki/doku.php/start" href="http://www.jandecaluwe.com/testwiki/doku.php/start">awesome template</a> that you should install to solve these problems.</li>
+</ul>
+</body>
+</html>

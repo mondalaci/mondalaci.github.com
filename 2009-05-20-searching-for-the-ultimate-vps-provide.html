@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Searching for the ultimate VPS provider</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Searching for the ultimate VPS provider</h1>
+<p>2009-05-20 22:38:52 GMT</p>
+<p>I change hosting providers quite frequently nowadays.  I <a href="http://monda.hu/blog/2009/03/03/searching-for-the-ultimate-shared-web-hosting-service/">moved to BlueHost</a> about two months ago and now I've just moved to <a href="http://www.linode.com/?r=419a2a7f6cd2cb0b8ebd81585fc2c15f52c3df04">Linode</a>.</p>
+<p>BlueHost is absolutely the best shared hosting provider in my opinion but there are several things that I've missed, such as:</p>
+<ul>
+<li>providing a Subversion repository through HTTP</li>
+<li>doing resource-intensive shell operations without the fear of being kicked out</li>
+<li>administering my server without going through zillions of CPanel pages</li>
+</ul>
+<p>It's not hard to realize that it's not possible to do the above things on a shared hosting account.  A dedicated server would have been truly overkill for my needs so I opted for a VPS account.</p>
+<p>There are two main kinds of VPSes: XEN and OpenVZ.  I wasn't conscious about the major differences between them for a long time, but I am now.  <a href="http://www.google.com/search?q=xen%20vs%20openvz">You can do your research</a>, but my conclusion is that XEN gives you much more freedom, because it's a true paravirtualization technology, not an OS-level technology like OpenVZ.  XEN may have slightly more overhead, but it makes you able to use the OS of your choice, manipulate iptables, load your own kernel modules and such.  Using my preferred OS (Ubuntu) is certainly a major benefit for me as most OpenVZ providers offer you CentOS which I cannot stand personally.  OpenVZ may have the advantage of providing "burstable" RAM that is temporarily usable RAM that the others don't use momentarily, but I don't like the concept because it may be the cause of nondeterminisic errors upon memory overruns.</p>
+<p>Linode has very good prices and they provide a very advanced custom-developed web interface which is ahead of their competitors.  You can install your OS image of choice in a matter of seconds and they also provide a unique feature: lish, the Linode Shell which runs at the hypervisor level and makes you able to log in to your VPS even when something terrible happens, like sshd gets killed.</p>
+<p>I'm very satisfied with their service so far and can only recommend it for everyone.  I could have choosen Amazon EC2 as the ultimate VPS, but I see Linode as their smaller counterpart that is more appropriate in scenarios where less resources are sufficient.</p>
+<p style="text-align: center; font-weight:bold">You may also want to choose<br />
+<br />
+<a href="http://www.linode.com/?r=419a2a7f6cd2cb0b8ebd81585fc2c15f52c3df04"><img title="linode-logo" src="http://monda.hu/blog/wp-content/images/linode-logo.png" alt="linode-logo" width="150" height="135" /></a><br />
+<br />
+as your VPS provider</p>
+</body>
+</html>

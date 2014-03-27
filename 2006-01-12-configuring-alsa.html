@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Setting Up ALSA</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Setting Up ALSA</h1>
+<p>2006-01-12 21:05:42 GMT</p>
+<p>I've just succedeed configuring ALSA.  I needed it badly because <a href="http://www.skype.com" title="http://www.skype.com">Skype</a> captured <code>/dev/dsp</code> every time I used it and I needed to quit and restart it in between conversations whenever I wanted to use another application which produced any sounds.  It frustrated the hell out of me.</p>
+<p>I needed a solution that allowed applications to output sound at the same time.  There are more ways to achieve that commonly using various sound servers in the past, but every such server must be supported on application level and they are generally not supported widely by most applications.</p>
+<p>Fortunately ALSA, the Advanced Linux Sound Architecture is here for a while to replace OSS.  You should read a bit <a href="http://www.linuxhardware.org/article.pl?sid=01/03/06/179255&amp;mode=thread" title="http://www.linuxhardware.org/article.pl?sid=01/03/06/179255&amp;mode=thread">background</a> on ALSA to understand why it is here and what can it do for you.  It is also useful to know about its <a href="http://www.alsa-project.org/alsa-doc/doc-php/asoundrc.php?module=Generic" title="http://www.alsa-project.org/alsa-doc/doc-php/asoundrc.php?module=Generic">configuration file</a> and <a href="http://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html" title="http://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html">plugin system</a>.</p>
+<p>ALSA seems to be pretty well supported by most applications and whenever it's not, it can be used with the <code>aoss</code> compatibility script to provide an enviroment for legacy OSS applications to use ALSA.</p>
+<p>It was extremely easy to set up ALSA for me.  I put up the <code>alsa-utils</code> and <code>alsa-oss</code> packages on my Debian SID box, did an <code>alsaconf</code> which took care of loading the needed modules and modifying the related configuration files accordingly.  After that the default PCM device was initially configured to use dmix which was exactly what I wanted.  You only need to configure ALSA applications to use ALSA and start non-ALSA applications with <code>aoss</code>.</p>
+<p>ALSA works fairly well for me since I set it up, although Firefox doesn't seem to like it when using with Flash.  It freezes if I close <a href="http://pandora.com" title="http://pandora.com">http://pandora.com</a> after listening some music.  I've found a great <a href="http://gentoo-wiki.com/HOWTO_ALSA_sound_mixer_aka_dmix" title="http://gentoo-wiki.com/HOWTO_ALSA_sound_mixer_aka_dmix">HOWTO</a> which details configuring many popular applications to use ALSA so you might want to check it out.</p>
+</body>
+</html>

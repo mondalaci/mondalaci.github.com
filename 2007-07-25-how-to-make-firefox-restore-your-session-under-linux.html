@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How to Make Firefox Restore Your Session under Linux</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>How to Make Firefox Restore Your Session under Linux</h1>
+<p>2007-07-24 23:22:19 GMT</p>
+<p>When you restart your GNOME / KDE session, Firefox asks you the same boring question once again:</p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/firefox-restore-previous-session.png" alt="firefox-restore-previous-session" width="640" height="138" /></p>
+<p>Seems familiar?</p>
+<p>The reason it happens is that Firefox doesn't implement the X session protocol so every time you log out from your Linux desktop, Firefox gets mercilessly killed.  I don't plan to patch Firefox to implement X session protocol, because I don't have the special knowledge and it'd took too much time for me, but I present you a pretty good hack that works really nice.</p>
+<p>Edit <code><strong>{your-firefox-directory}</strong>/components/nsSessionStartup.js</code> as follows:</p>
+<p>Original code:</p>
+<pre lang="javascript">// prompt and check prefs
+this._doRestore = this._lastSessionCrashed ? this._doRecoverSession() : this._doResumeSession();</pre>
+<p>Updated code:</p>
+<pre lang="javascript">// prompt and check prefs
+var ignoreSessionCrash = this._getPref("sessionstore.ignore_session_crash", false);
+this._doRestore = !ignoreSessionCrash && this._lastSessionCrashed
+                      ? this._doRecoverSession()
+                      : this._doResumeSession();</pre>
+<p>From now on if you want to always restore your session upon startup, you have to set the <code>sessionstore.ignore_session_crash</code> variable to <code>true</code> within the <code>about:config</code> page of Firefox (you have to type <code>about:config</code> in the address bar).</p>
+<p>if Firefox keeps crashing due to an evil web page that is saved in your session, then you have to manually set the <code>sessionstore.ignore_session_crash</code> variable to <code>false</code> by editing the <code><strong>{your-home-directory}</strong>/.mozilla/firefox/{your-profile-dir}/prefs.js</code> file as follows:</p>
+<p>original line: <code>user_pref("browser.sessionstore.ignore_session_crash", true);</code><br />
+updated line: <code>user_pref("browser.sessionstore.ignore_session_crash", false);</code></p>
+<p>Good luck hacking your Firefox until the X session protocol gets implemented in it!</p>
+</body>
+</html>

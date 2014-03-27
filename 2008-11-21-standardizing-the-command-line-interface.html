@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Standardizing the command line interface</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Standardizing the command line interface</h1>
+<p>2008-11-21 03:46:46 GMT</p>
+<p>Few days ago I've tried to do some scripting with the s3cmd.rb utility and I couldn't find a way to carry out the task because of the interactive nature of s3cmd.rb.  I've made some search on the s3sync forum and finally found the solution:</p>
+<p>yes | s3cmd.rb list mybucket | grep -v 'More? Y/n:'</p>
+<p>I was surprised to find out that the "yes" utility is part of GNU Coreutils and I didn't know about it.  I also find funny the hacky nature of the solution.  It's not bulletproof because if your bucketname / keyname contains the "More? Y/n:" string then you're screwed, but that's a highly unlikely case and I admit that the above script should work in practice.</p>
+<p>I was thinking on how command line applications could be standardized so they'd become more usable, less of a pain.  Here are my suggestions:</p>
+<ul>
+<li>If the default interactive mode makes sense, then provide a -y, –yes option to make scripting easy.</li>
+<li>If recursion makes sense, provide the -r, –recursive option.  Please don't use -R with capital "r", like chown does!  I don't wanna look up the manual every time in such trivial cases.</li>
+<li>Make your utility accept – as the ending of your arguments so filenames starting with a dash won't be misinterpreted.</li>
+<li>Don't add the scripting language related extension, like .py, .rb, .pl to your utility, please!  I want to type it as fast as it's possible and I don't care what language you use unless I have to hack your crappy script which shouldn't be the case.</li>
+</ul>
+<p>I could probably come up with dozens like the above, but these are my initial thoughts.</p>
+</body>
+</html>

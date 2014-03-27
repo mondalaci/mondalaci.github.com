@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Setting up HTTPS with Apache using a CAcert certificate</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Setting up HTTPS with Apache using a CAcert certificate</h1>
+<p>2009-08-17 11:04:18 GMT</p>
+<p>openssl req -new -nodes -out yourdomain.com.csr -keyout yourdomain.com.pem<br />
+# Type your domain name to the Common Name field.</p>
+<p># Log in to CAcert, go to Server Certificates &gt; New, select "Sign by class 3 root certificate", hand the CSR and get the CRT which you should place to your server as /etc/apache2/ssl/yourdomain.com.crt</p>
+<p>cat &lt;&lt; END &gt; /etc/apache2/sites-available/yourdomain.com<br />
+NameVirtualHost *:443<br />
+&lt;VirtualHost *:443&gt;<br />
+DocumentRoot /var/www<br />
+Options FollowSymLinks<br />
+SSLEngine on<br />
+SSLCertificateFile /etc/apache2/ssl/yourdomain.com.crt<br />
+SSLCertificateKeyFile /etc/apache2/ssl/yourdomain.com.pem<br />
+&lt;/VirtualHost&gt;<br />
+END</p>
+<p>a2ensite yourdomain.com<br />
+a2enmod ssl<br />
+apache2ctl restart</p>
+<p>&nbsp;</p>
+</body>
+</html>

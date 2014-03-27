@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ultimate Commander: Listing Configuration Implemented</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Ultimate Commander: Listing Configuration Implemented</h1>
+<p>2006-02-28 20:12:26 GMT</p>
+<p>It's been a while since I've blogged about UC.  That was because I had to do some major refactorizations which I couldn't foresee, but I feel very satisfied with the end result even if the development progress is slower than I planned.</p>
+<p>Let's see some big picture things of the current state of UC:</p>
+<pre lang="bash">laci@whisper:~/projects/uc$ wc *.cs
+  137   439  4011 AttributeIcons.cs
+  450  1276 10411 File.cs
+   51    98   973 Frame.cs
+   26    45   467 GladeContainer.cs
+   19    41   464 GladeWidget.cs
+   88   169  1770 MainWindow.cs
+  338   753  8033 Panel.cs
+   94   189  2266 PanelColumn.cs
+  237   578  7873 PanelColumnInfo.cs
+   30    84   732 PanelConfigurator.cs
+   77   179  1424 PanelFrame.cs
+  247   523  6734 PanelListingConfigurator.cs
+   36    63   615 PanelSortingConfigurator.cs
+  121   248  2251 Slot.cs
+   29    58   629 UltimateCommander.cs
+   38    73   635 View.cs
+ 2018  4816 49288 total</pre>
+<p>Here's how the class hierarchy looks like:</p>
+<pre lang="text">+-+ Object
+  |
+  +-+ AttributeIcons
+  |
+  +-+ File
+  |
+  +-+ MainWindow
+  |
+  +-+ PanelColumnInfo
+  |
+  +-+ Gtk.HBox
+  | |
+  | +-+ GladeWidget
+  | |
+  | +-+ GladeContainer
+  | |
+  | +-+ Slot
+  | |
+  | +-+ View
+  |   |
+  |   +-+ Panel
+  |   |
+  |   +-+ PanelConfigurator
+  |     |
+  |     +-+ PanelListingConfigurator
+  |     |
+  |     +-+ PanelSortingConfigurator
+  |
+  +-+ Gtk.NoteBook
+  | |
+  | +-+ Frame
+  |   |
+  |   +-+ PanelFrame
+  |
+  +-+ Gtk.TreeViewColumn
+    |
+    +-+ PanelColumn</pre>
+<p>Wait, here comes the best part: Ladies and Gentlemen, the first <a href="http://ultimatecommander.org/Screencasts">screencast</a> of the Ultimate Commander!</p>
+<p>As a side note, UC starts up considerably faster, but capturing takes up much CPU time.</p>
+</body>
+</html>

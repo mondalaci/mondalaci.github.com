@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GCC Finished</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>GCC Finished</h1>
+<p>2005-04-23 22:49:00 GMT</p>
+<p>It was a long time to blog.  I hadn't really much time for it.  Well, to be honest the situation is the same this time too, but I wanna write a few words because of informational purpouses and for fun also.</p>
+<p><b>GCC Finished</b></p>
+<p>I've finished the GCC job.  There would be other things to do, more specifically generalizing some aspects of the algorithm, but I've done the basic task and I hadn't really much time to go on.  What was it exactly?  I've implemented the special hoisting case described in the <a href="http://www.gccsummit.org/2004/2004-GCC-Summit-Proceedings.pdf">Proceedings of the GCC Developers' Summit paper</a>, page 81, Figure 2 at the Tree SSA level.  It's good to try different kinds of jobs because it makes me realize what kinds of works fit me best personally.  GCC has some ugly aspects and I generally didn't enjoy this work much.  That's for several reasons, namely 1) I don't really like C, it's too low level for me.  Of course in case of compiling, speed really matters so one has no choice, 2) GCC is full of macro definitions which need to be used extensively throughout the code.  My main problems with these is that I cannot tell the signature of a macro call.  I don't know what types I need to give and what type is returned so it's like a chaos for me.  One can tell their signature at some degree because macro names are well-chosen, but the exact signature is a hard stuff to find out.</p>
+<p>On the other hand it was a good lesson to get to know the internals of GCC.  I hadn't ever thought of how many intermediate internal representations and transformations are there which make up the whole process of compiling.  GCC is probably one of the largest and most complex free software project in the history.</p>
+<p><b>Multiuser rdesktop</b></p>
+<p>Windows XP has a feature called Remote Desktop which makes you able to remotely administrate your WinXP box (suprise!).  The evil aspect of this thing is that you are only allowed to run one user session at a time.  Yeah, that means if you wanna log in, you must kick out another user who was already logged in at that time.  It's a bad, bad thing.  Microsoft states you need to use Windows 2000 or 2003 to be able to use one Windows by more users.  Thanks God, one have not to  spend any money to do that, since some clever folks out there had figured out some ways to tweak this thing.  You may check it out yourself too.  Search with google on "<a href="http://www.google.com/search?q=windows%20xp%20concurrent%20sessions%20termsrv.dll">windows xp concurrent sessions termsrv.dll</a>".</p>
+<p><b>Insecurity</b></p>
+<p>I've found an extremely helpful <a href="http://www.coping.org/growth/security.htm">site</a> on insecurity.  I'm talking about psychology, not computer security.  You might wanna check it out along with all the related materials on this site.</p>
+</body>
+</html>

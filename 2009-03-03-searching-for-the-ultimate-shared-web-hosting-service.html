@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Searching for the ultimate shared web hosting service</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Searching for the ultimate shared web hosting service</h1>
+<p>2009-03-03 22:41:13 GMT</p>
+<p>I've been using the services of <a title="http://www.mediacenter.hu/" href="http://www.mediacenter.hu/">MediaCenter</a> as my web hosting provider for 3 years and I cannot say a bad word about them because they provide a decent service, but I've realized recently that I want more, specifically:</p>
+<p>* SSH to do advanced system administration and secure file transfer<br />
+* Virtual Host configuration without the need to contact customer support<br />
+* Manipulating DNS records without the need to contact customer support and being able to use a name server other than theirs</p>
+<p>The last few days were very demanding because I wanted to find the best shared hosting provider that fit the above needs.</p>
+<p>The toplic of <strong>managed vs unmanaged hosting</strong> really hits home for me.  Most users are not technically savvy so they prefer having a customer support to hold their hands, but it's an entirely different situation for me who uses computers since the age of 6.  I don't wanna mail back and forth with anyone just to make something happen.  As huge companies wanna satisfy the masses and clueless users constantly mess up their DNS records and contact the customer support, companies decide to disable manual DNS record manipulation and make the job of novices easier and mine harder.  This is a common pattern to see, not only about DNS specifically, but about all services.</p>
+<p><strong>SSH is a serious filtering factor.</strong> There are very few providers who offer SSH because of the considerable security risk involved.  There are about a dozen of them who seemed adequate.  After further filtering them based on their hosting plans I could remove most of them who 1) offered very few addon domains, 2) who had all hosting plans longer than one month (all of them offer money back guarantee, but I don't trust anyone for the first time) and 3) who had lots of very bad reviews on a lot of site.</p>
+<p><strong>Review sites is a mixed bag.</strong> I think that the whole peer review concept is useless without some kind of metrics, like a trust network, just as <a title="http://video.google.com/videoplay?docid=-5092930485716426869" href="http://video.google.com/videoplay?docid=-5092930485716426869">Advogato does</a> or like the online auction sites do.  Unfortunately none of the review sites have any metrics so how could I be sure that their reviews are honest are not made by some marketing people posting good or bad reviews?  There's no way to tell, but my method is to look for reviews that look pretty unique and google some parts of them.  If I don't find any duplicates that's a good sign that it's a genuine review.  I think this method is pretty reliable because most people are too lazy to post their reviews on multiple sites.  I don't know whether I'm right, but I don't have any better ways to tell which reviews are trustable.</p>
+<p>One should be very careful when evaluting providers.  Nothing is unlimited and nothing is free, no matters what they state on their front page.  <strong>You have to read their ToS no matter what!</strong> You can easily find out that they don't offer the money back guarantee - which they are so proud of on their front page - for shared hosting packages.</p>
+<p><strong><a title="http://www.a2hosting.com" href="http://www.a2hosting.com">A2 Hosting</a></strong> seemed very promising and I was flirting with their hosting plans for a while so I tried them first.  Everything seemed pretty fine until I realized how poor their foreign bandwith is.  It's about 30 kbyte/sec, not something that I expected.  They use CentOS, and the jailed shell was rather limited, but I could find a Midnight Commander package and make it work.  Unfortunately there was no subshell because they don't offer devpts in a jailed environment.  I left them because of their <strong>poor foreign bandwidth</strong>.</p>
+<p><strong><a title="http://www.ubiquityhosting.com/" href="http://www.ubiquityhosting.com/">Ubiquity Hosting Solutions</a></strong> was my next try.  They seemed to offer everything I needed based on their hosting plans.  As I issued "who" from their command line I realized how few power user were present.  A typical server of a big hosting provider has about 4 Xeon processors with 16G RAM and hundreads of user, but there were only about 2 or 3 users logged in through SSH.  I could also detect a major security hole which allowed me to see the home directories of other users on the server.  I could also see some public_html directores and the configuration files of various CMSes managed by other users.  I could hack some sites, but I rather reported them the problem and they solved it within 24 hours.  Unfortunately after realizing that <strong>they don't allow me to use any other nameserver but theirs</strong>, I moved on.  This goes back to the sad topic of managed vs unmanaged hosting.</p>
+<p><strong><a title="http://www.webintellects.com/" href="http://www.webintellects.com/">Webintellects</a></strong> was my next try.  I was their customer for about two hours while I could easily figure out that they provide a <strong>ridiculously limited shell environment without procfs and sysfs</strong>.</p>
+<p><strong><a title="http://www.bluehost.com/" href="http://www.bluehost.com/">Bluehost</a></strong> was my last hope.  I don't think one can make up any company name that is more boring than theirs.  I was more than surprised when I figured out that they provide the most powerful SSH of all times.  I could build Midnight Commander from source, all the developer packages were present.  One should be careful however because according to their ToS they can cancel the service if one overuses processing resources so I stopped make a several times and later continued.  Bluehost provides devpts, so subshell works magically with the Midnight Commander.  Their foreign bandwidth is also adequate so my journey of finding <strong>the ultimate shared hosting provider</strong> has succeeded.</p>
+<p>After going through all the hassle one might ask me whether I am satisfied.  Well, BlueHost provides everything one can ever ask from a web hosting provider, but there are limitations in such an environment.  The one thing I'd like is to use SVN through HTTP, but I'm not allowed to use DAV with Apache on their servers.  I think the next step is going to be a VPS.  <a title="http://www.kickassvps.com/services/linux_vps/plans.php" href="http://www.kickassvps.com/services/linux_vps/plans.php">KickAss VPS</a> has the best price and <a title="http://www.websitesource.com/hosting/vps.shtml" href="http://www.websitesource.com/hosting/vps.shtml">Business Services</a> also seem promising, but I'm a little bit sceptical because they don't provide dedicated resources, neither compute time, nor bandwith.  I don't wanna move to a VPS just to have SVN thorugh HTTP.  Currently I use the services of <a title="http://sourcerepo.com/" href="http://sourcerepo.com/">SourceRepo</a> for my SVN needs and I may move on to a VPS eventually.</p>
+<p style="text-align:center;"><strong>You may also want to choose</strong><br />
+<a href="http://www.bluehost.com/track/mondalaci/CODE81" target="_top"><img width="620" height="203" src="http://monda.hu/blog/wp-content/uploads/bh_620x203_01.jpg" alt="Bluehost logo"/></a>
+</p>
+<p style="text-align:center; color:#600">Disclosure: I recieve compensation for this referral.</p>
+<p>Update (2009-08-17): Now it is absolutely clear to me that Bluehost is ahead of the rest regarding shared hosting.  Matt Heaton, the CEO of Bluehost have some incredible insights about performance issues in shared hosting environments and they're working on the kernel level to solve these problems.  Here are his relevant posts so far:</p>
+<ul>
+<li><a title="http://www.mattheaton.com/?p=179" href="http://www.mattheaton.com/?p=179">The pain of backups, the sweetness of speed!</a></li>
+<li><a title="http://www.mattheaton.com/?p=185" href="http://www.mattheaton.com/?p=185">Hosting Nirvana - The Future of Shared Hosting!</a></li>
+<li><a title="http://www.mattheaton.com/?p=188" href="http://www.mattheaton.com/?p=188">Backup Kernel Patch</a></li>
+<li><a title="http://www.mattheaton.com/?p=201" href="http://www.mattheaton.com/?p=201">Virtual Memory - The Swap Problem</a></li>
+<li><a title="http://www.mattheaton.com/?p=208" href="http://www.mattheaton.com/?p=208">Shared Hosting CPU Protection Is Here!!!</a></li>
+</ul>
+<p>The guy have been done a massive amount thinking about these issues and he deserves success.</p>
+<hr>Comment written by Dave at 2009-10-19 17:48:11 GMT:<br><blockquote><p> I could build Midnight Commander from source, all the developer packages were present. </p></blockquote>
+<p>I neeed my MC in a shell. How'd you get by the dependency for GLIB on your Bluehost install? I've tried compiling both mc-4.6.1 and the newer mc-4.7.0-pre3 with the same sort of GLIB death:</p>
+<p>checking for GLIB - version &gt;= 1.2.6... no<br />
+*** The glib-config script installed by GLIB could not be found<br />
+*** If GLIB was installed in PREFIX, make sure PREFIX/bin is in<br />
+*** your path, or set the GLIB_CONFIG environment variable to the<br />
+*** full path to glib-config.<br />
+configure: error: Test for glib failed.<br />
+GNU Midnight Commander requires glib 1.2.6 or above.</p>
+
+<hr>Comment written by <a href="http://laci.monda.hu">Laci</a> at 2009-10-19 18:24:03 GMT:<br><p>Hey Dave,</p>
+<p>Unfortunately, I cannot recall the exact specifics, but based on the output it seems to me that the glib developer package is not installed on the host you're on.  I'd install glib from source first and set LD_PRELOAD to ~/lib assuming you put the relevant files there.</p>
+<p>I don't have a Bluehost account currently, so that's the most I can help so far.</p>
+<p>Let me know how it works for you.</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2010-11-30 02:24:50 GMT:<br><p>Elton: Adding any feed to Google Reader should be a no-brainer.  I wouldn't like to hurt your feelings by deleting your comment but I will if you won't answer within about one week because I suspect that yours is an automated advertisement message.</p>
+
+<hr>Comment written by <a href="http://www.iwebhostingplans.com/bluehostwebhosting.asp">russ</a> at 2012-02-16 19:12:19 GMT:<br><p>I have used all of the shared web hosting providers as well and feel it might be time to upgrade to VPS or the Cloud. Just too many performace issues and the speed is simply subpar. But what do I expect when there are hundreds of sites on a server?</p>
+
+<hr>Comment written by <a href="http://monda.hu">Laci</a> at 2012-02-16 19:44:51 GMT:<br><p>Well said, Russ.  Shared hosting is shared hosting...</p>
+<p>I figured that a VPS is not a perfect solution either because it gets slashdotted easily.  An auto-scaling cloud service would be the best choice but those start from around $150 per month.  Right now my plan is to move from Apache to ngnix on my Linode 512.</p>
+
+</body>
+</html>

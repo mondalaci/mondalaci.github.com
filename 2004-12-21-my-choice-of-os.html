@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Choice of OS</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>My Choice of OS</h1>
+<p>2004-12-21 22:09:23 GMT</p>
+<p>J. Scott Edwards OS geek has written <a href="http://osnews.com/story.php?news_id=9192">a nice article</a> on OSNews about his ideal operating system.  A lot of his ideas feel familiar to me (except from the 3D UI which I think is totally braindead and useless).</p>
+<p>When he talks about the global object store as I would call it, I can really feel his pain.  Let's take a short break... it's object store because it's a layer above the filesystem (ideally without a file system, but because backward compatibility it makes sense today using the Unix VFS API) that lets one define and create his/her own objects and relate them together.  And it's global, because it not only stores which is accessible but it also stores which is inaccessible (off the disk - archived to CDs, DVDs, ...).  So it's a 2 in 1 solution.  I've been very concerned with archivation and sturctural storage problems in the last few months (years?).</p>
+<p><a href="http://www.gnome.org/~seth/storage/">Storage</a> promised to implement this long-awaited architectural piece, but seeing how it progresses I'm not sure it's ever gonna ready.</p>
+<p>When he talks about continuity, he thinks of <a href="http://www.eros-os.org/project/novelty.html">orthogonal global persistence</a> featured in the <a href="http://www.eros-os.org/">EROS OS</a>.</p>
+<p>I think another extremely important trait of a future OS is strong interprocess communication and code reuse.  Applications are rather monolithical because of the diverse APIs and languages.  Maybe language oriented programming really has a place because laguages are long term while APIs are rather short term.  Ideally an OS is a set of strongly interconnected state machines with no multiplied, only reused code.</p>
+<p>I like the philosophy of the <a href="http://unununium.org/">Unununium OS</a>.  On the main page you can see Hans Reiser's quote: "The utility of an operating system is more proportional to the number of connections possible between its components than it is to the number of those components."  I cannot tell in words how much I feel this statement true.</p>
+<p>This guy even started <a href="http://sourceforge.net/projects/nwos">his own project</a> implemting this stuff in Eiffel among other languages.  It seems to me like yet another idealistic never-will-be-ready project.  Good luck dude!  Anyone knows Eiffel by the way?</p>
+<p><strong>Imagemapmaker</strong></p>
+<p>I don't like C++.  In my opinion it's a hack, an OOP layer above C.  <a href="http://www.cs.rice.edu/~ian/Manifestoes/c++isBad.shtml">I'm not alone</a>, of course.  I've just written <a href="https://github.com/mondalaci/imagemapmaker">an application</a> in it.  It was a prerequisite for a job and I had no choice in language, that's why I've used it.  The task of the application was to create image maps and the related (X)HTML document from image files contained in a set of directories.  It's a CLI application.  I've used <a href="http://www.boutell.com/gd/">gd</a> which is a C library so the mixed C, C++ code is ugly like shit and I sucked a lot with some segfaults too as expected and stdstream bugs (less expected), but it works pretty well by this time.  However several things left that I couldn't figure out completely.  I wanna clean up the code and completely get it.  Here's how it looks like:</p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/imagemapmaker.png" alt="imagemapmaker" width="614" height="733" /></p>
+<p>Apart from the hack feeling of C++, the separate definition (.h) - implemetation (.cpp) layout makes me mad.  It's so disturbing editing dozens of these stupid files separately.</p>
+<p><strong>Amarok</strong></p>
+<p><a href="http://amarok.kde.org/">Amarok</a> doesn't seem to be yet another winamp clone.  I like its unique features and design.  Especially the song playing statistics, the CD cover preview, its fancy visualization and the advanced playlist.  It's worth reading the <a href="http://osnews.com/story.php?news_id=9105">OSNews interview with the Amarok developers</a>.  Gstreamer is probably very flexible also.  If everything goes well, I'll test it within a short time.</p>
+</body>
+</html>

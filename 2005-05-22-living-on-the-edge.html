@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Living on the Edge</title>
+<meta charset="utf-8">
+</head>
+<body>
+<h1>Living on the Edge</h1>
+<p>2005-05-22 11:42:48 GMT</p>
+<p>I've installed most of the recent pieces of the Mono / GTK universe.  I've been wanting to set them up for a really long time so I feel terrific now that I've made it.  Just take a look at this screenshot.</p>
+<p><img src="http://monda.hu/blog/wp-content/uploads/mono-gnome.png" alt="mono-gnome" width="640" height="512" /></p>
+<p>You gotta love a desktop like this!</p>
+<p>Well, it was not so easy as you may think.  Most new applications has some braindead idiosyncrasies.  Interestingly enough, there is a common source of problems.  Whenever there is a build problem it is almost always magically related to autotools.</p>
+<p><a href="http://sources.redhat.com/autobook/">Autotools</a>: a set of tools designed to build applications in a crossplatform way created by some perverts out there who were so wicked to use m4, the macro preprocessor as its foundation that have the most disgusting syntax one can ever imagine!  <a href="http://freshmeat.net/articles/view/889/">Many have realized</a> the crapiness of these tools, but no really usable alternatives have been born yet.</p>
+<p><strong>Building the Gems: First Steps, General Advices</strong></p>
+<p>In the following paragraphs, I'll cover the installation of <a href="http://www.google.com/url?sa=U&amp;start=1&amp;q=http://www.gnome.org/projects/beagle/&amp;e=10313">Beagle</a> and <a href="http://www.google.com/url?sa=U&amp;start=1&amp;q=http://www.beatniksoftware.com/tomboy/&amp;e=10313">Tomboy</a>.  I also wanted to build <a href="http://www.google.com/url?sa=U&amp;start=1&amp;q=http://www.gnome.org/projects/f-spot/&amp;e=10313">F-Spot</a>, <a href="http://www.google.com/url?sa=U&amp;start=1&amp;q=http://muine.gooeylinux.org/&amp;e=10313">Muine</a> and <a href="http://www.google.com/url?sa=U&amp;start=1&amp;q=http://www.monodevelop.com/&amp;e=10313">Monodevelop</a>, but I couldn't make them work right now.  The most recent version of Mono (1.1.7) is more standards compliant.  While it's basically a good thing, unfortunately it seems that a lot of Mono applications contain nonstandard C# code that compiled well with the earlier versions of Mono that weren't so strict, but now that new version  has been improved in this aspect, these application bugs were triggered and some developers need to rewrite their applications to comply to the standards.  This means that one has to wait to make work some applications with Mono 1.1.7 until they get rewritten.</p>
+<p>The first thing you need to do is to set up the most recent version of automake and aclocal.  In many cases a distribution has multiple versions installed of them.  These tools are accessible from <code>/usr/bin</code>.  In Debian, they link to <code>/etc/alternatives</code> which in turn links to a version of the binary in <code>/usr/bin</code> that is currently in use.  Install their most recent versions and set up your system to use them.</p>
+<p>Another thing that you should make a mental note for:  When installing GTK# (any version), if you encounter with the following error:</p>
+<pre>Unhandled Exception: System.DllNotFoundException: gnomesharpglue</pre>
+<p>you should run <code>ldconfig</code> (as root), and everything's gonna be fine.</p>
+<p><strong>Beagle</strong></p>
+<p>First, check out <a href="http://beaglewiki.org">BeagleWiki</a>.  It's the most useful resource you can find on the topic.  I only want to mention the things that aren't obvious.</p>
+<p>In order to install Beagle, you'll need an <a href="http://www.kernel.org/pub/linux/kernel/people/rml/inotify/v2.6/">inotify</a>-enabled kernel.  If you think long-term, you'll chose the latest inotify patch, because the inotify API/ABI were in constant flux during the last months so using the latest patch hopefully avoids us in the near future of compiling a new kernel when it changes again.</p>
+<p>Pull Beagle from the CVS, because of the reason above.  I've only installed vw1 and pdfinfo of its optional prerequisites.  I couldn't make work the others.</p>
+<p>Everything should be straightforward from now on unless you're a poor bastard who checks out the CVS when it's in a broken state.</p>
+<p><strong>Tomboy</strong></p>
+<p>First, edit <code>/usr/local/lib/bonobo/servers/bonobo-activation-config.xml</code> to include the path <code>/usr/local/lib/bonobo/servers</code>.  The file should look like this:</p>
+<pre lang="xml">< ?xml version="1.0"?>
+<oafconfig>
+<searchpath>
+    <!-- Examples: -->
+    <!-- <item>/opt/gnome2/lib/bonobo/servers -->
+    <!-- <item>/usr/local/gnome2/lib/bonobo/servers -->
+    <strong><item>/usr/local/lib/bonobo/servers</item></strong>
+    <!-- <item>/opt/gnome2/bonobo-activation/lib/bonobo/servers -->
+</searchpath>
+</oafconfig></pre>
+<p>Then pull the source from the CVS and you're ready to go!</p>
+<p><strong>Conclusion</strong></p>
+<p>Beagle if a fascinating piece of software, no questions.  I think of Beagle much more as a system component than a regular application.  The functionality it brings is very essential, powerful, and will be massively used by many applications in the future.  Beagle seems to be unstable in some cases, but it's generally usable.</p>
+<p>Tomboy, on the other hand is quite a mature piece of software.</p>
+<p><strong>Learning English</strong></p>
+<p>I've found a really usable <a href="http://www.englishclub.com/learn-english.htm">English learning site</a>.  Since my grammar is far from perfect, I'll probably check it out several times.  It's a great resource.</p>
+<p><strong>Silva</strong></p>
+<p>I've just heard about yet another Zope based CMS.  It's called <a href="http://www.infrae.com/products/silva">Silva</a> and it's probably worth a try.  It's rare to see new Zope based CMSes emerging, because Zope is rather an alien platform among web developers.  Most of them do PHP, especially in the FOSS world, others from the commercial world might prefer ASP, but Zope is a strange kind of beast.  However I think it's an incredibly powerful platform to build upon.  Silva is available on <a href="http://objecits.org">Objectis</a> since several weeks back so anybody can easily give it a try.</p>
+</body>
+</html>
