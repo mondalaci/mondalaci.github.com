@@ -8,7 +8,7 @@
 <h1>How to Make Firefox Restore Your Session under Linux</h1>
 <p>2007-07-24 23:22:19 GMT</p>
 <p>When you restart your GNOME / KDE session, Firefox asks you the same boring question once again:</p>
-<p><img src="http://monda.hu/blog/wp-content/uploads/firefox-restore-previous-session.png" alt="firefox-restore-previous-session" width="640" height="138" /></p>
+<p><img src="/blog/wp-content/uploads/firefox-restore-previous-session.png" alt="firefox-restore-previous-session" width="640" height="138" /></p>
 <p>Seems familiar?</p>
 <p>The reason it happens is that Firefox doesn't implement the X session protocol so every time you log out from your Linux desktop, Firefox gets mercilessly killed.  I don't plan to patch Firefox to implement X session protocol, because I don't have the special knowledge and it'd took too much time for me, but I present you a pretty good hack that works really nice.</p>
 <p>Edit <code><strong>{your-firefox-directory}</strong>/components/nsSessionStartup.js</code> as follows:</p>

@@ -15,7 +15,7 @@
 <p><strong>Best Case Scenario</strong></p>
 <p>So what would be the best scenario for thumbnailing movie files?  The whole point of movie thumbnails is that the user can associate the thumbnail with the movie it belongs to, so the user must be provided with an interface which makes him able to associate a thumbnail that is actually relevant to him.  I see two possibilities for achiving this goal:</p>
 <ol>
-<li>Implement a mini movie player that provides a way to capture a frame into a thumbnail.  Unfortunately GStreamer isn't wrapped in Mono yet, so I cannot implement this solution in <a title="http://monda.hu/projects/uc" href="http://monda.hu/projects/uc">UC</a>.</li>
+<li>Implement a mini movie player that provides a way to capture a frame into a thumbnail.  Unfortunately GStreamer isn't wrapped in Mono yet, so I cannot implement this solution in <a title="/projects/uc" href="/projects/uc">UC</a>.</li>
 <li>Randomly capture more images of the movie so that the user can choose of them the one which he likes the best.  If he doesn't like either of them, he can recapture the same number of images any time.  This solution has the undisputable advantage that it can be easily implemented as a command line application as you'll see below.  I also think it's a more convenient approach.</li>
 </ol>
 <p><strong>Thumbnailing in GNOME</strong></p>
@@ -43,10 +43,10 @@ Capturing image 2 of 4 as rock2.png...
 Capturing image 3 of 4 as rock3.png...
 Capturing image 4 of 4 as rock4.png...</pre>
 <p>Wanna see how the thumbnails look like?</p>
-<p><img src="http://monda.hu/blog/wp-content/uploads/rock-capture-1.png" alt="rock-capture-1" width="384" height="138" /></p>
-<p><img src="http://monda.hu/blog/wp-content/uploads/rock-capture-2.png" alt="rock-capture-2" width="384" height="138" /></p>
-<p><img src="http://monda.hu/blog/wp-content/uploads/rock-capture-3.png" alt="rock-capture-3" width="384" height="138" /></p>
-<p><img src="http://monda.hu/blog/wp-content/uploads/rock-capture-4.png" alt="rock-capture-4" width="384" height="138" /></p>
+<p><img src="/blog/wp-content/uploads/rock-capture-1.png" alt="rock-capture-1" width="384" height="138" /></p>
+<p><img src="/blog/wp-content/uploads/rock-capture-2.png" alt="rock-capture-2" width="384" height="138" /></p>
+<p><img src="/blog/wp-content/uploads/rock-capture-3.png" alt="rock-capture-3" width="384" height="138" /></p>
+<p><img src="/blog/wp-content/uploads/rock-capture-4.png" alt="rock-capture-4" width="384" height="138" /></p>
 <p>They seem pretty neat.  Which one would you choose?</p>
 <p>As a last note, maybe you should use <code>depot-video-thumbnailer</code> instead of <code>totem-video-thumbnailer</code>, because it uses bilinear filtering so your thumbnails won't look that messy.</p>
 </body>
