@@ -1,0 +1,47 @@
+<?php
+
+if (!file_exists('../wp-config.php')) {
+    die('There doesn\'t seem to be a wp-config.php file. Double check ' .
+        'that you updated wp-config-sample.php with the proper database ' .
+        'connection information and renamed it to wp-config.php.');
+}
+
+require('../wp-config.php');
+
+$posts_table = $table_prefix . 'posts';
+$comments_table = $table_prefix . 'comments';
+
+print 'Updating comment counters...<br>';
+
+$query = 'SELECT count(comment_id) AS comment_count, comment_post_id ' .
+         "FROM $comments_table GROUP BY comment_post_id";
+
+$comments = $wpdb->get_results($query);
+
+$where = '';
+$first = true;
+
+if ($comments) {
+    foreach ($comments as $comment) {
+        $id = $comment->comment_post_id;
+        $count = $comment->comment_count;
+
+        $query = "UPDATE $posts_table SET comment_count = $count WHERE ID = $id";
+        $wpdb->query($query);
+
+        if (!$first) {
+            $where .= 'AND ';
+        }
+        $where .= "ID != $id ";
+        $first = false;
+    }
+}
+print count($comments) . ' articles has comments.  Their comment ' .
+      'counters have been explicitly set.<br>';
+
+$query = "UPDATE $posts_table set comment_count = 0 WHERE $where";
+$results = $wpdb->get_results($query);
+print count($results) . ' comment counters needed to be zeroed of the ' .
+      'articles which doesn\'t have any comments.<br>All done!<br>';
+
+?>

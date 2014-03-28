@@ -1,0 +1,56 @@
+<?php
+
+function myrealpath($path)
+{
+   if ($path == "")
+   {
+       return false;
+   }
+
+   $path = trim(preg_replace("/\\\\/", "/", (string)$path));
+
+   if (!preg_match("/(\.\w{1,4})$/", $path)  && 
+       !preg_match("/\?[^\\/]+$/", $path)  && 
+       !preg_match("/\\/$/", $path))
+   {
+       $path .= '/';
+   }
+
+   $pattern = "/^(\\/|\w:\\/|https?:\\/\\/[^\\/]+\\/)?(.*)$/i";
+
+   preg_match_all($pattern, $path, $matches, PREG_SET_ORDER);
+
+   $path_tok_1 = $matches[0][1];
+   $path_tok_2 = $matches[0][2];
+
+   $path_tok_2 = preg_replace(
+                   array("/^\\/+/", "/\\/+/"),
+                   array("", "/"),
+                   $path_tok_2);
+
+   $path_parts = explode("/", $path_tok_2);
+   $real_path_parts = array();
+
+   for ($i = 0, $real_path_parts = array(); $i < count($path_parts); $i++)
+   {
+       if ($path_parts[$i] == '.')
+       {
+           continue;
+       }
+       else if ($path_parts[$i] == '..')
+       {
+           if (  (isset($real_path_parts[0])  &&  $real_path_parts[0] != '..')
+               || ($path_tok_1 != "")  )
+           {
+               array_pop($real_path_parts);
+               continue;
+           }
+       }
+
+       array_push($real_path_parts, $path_parts[$i]);
+   }
+
+   return $path_tok_1 . implode('/', $real_path_parts);
+}
+
+?>
